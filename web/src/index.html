@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Landing - Freelancer Front End</title>
+    <title>Página com Logo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>Página com Logo, Título, Imagem e WhatsApp</title>
+    <link rel="stylesheet" href="./style/index.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body class="page">
+    <!-- ===================== HEADER ===================== -->
+    <header class="header">
+      <div class="header__container container">
+        <a href="#" class="header__brand" aria-label="Logo">
+          <img src="../assets/Logo.png" alt="Logo Marca" class="logo" />
+
+          <a
+            href="https://wa.me/5571996466575"
+            class="whatsapp-button"
+            target="_blank"
+          >
+            <img src="../assets/whatsapp.png" alt="WhatsApp" />
+          </a>
+        </a>
+
+        <nav class="nav" aria-label="Principal">
+          <button
+            class="nav__toggle"
+            aria-expanded="false"
+            aria-controls="navMenu"
+            aria-label="Abrir menu"
+          >
+            <span class="nav__bar"></span><span class="nav__bar"></span
+            ><span class="nav__bar"></span>
+          </button>
+          <ul class="nav__list" id="navMenu">
+            <li class="nav__item">
+              <a class="nav__link is-current" href="#">Inicio</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#servicos">Serviços</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#pacotes">Pacotes</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#portifolio">Projetos</a>
+            </li>
+            <li class="nav__item">
+              <a class="nav__link" href="#sobre">Sobre</a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- <a
+          href="#contato"></a>
+          
+         <a href="https://wa.me/5571996466575" class="whatsapp-button" target="_blank">
+        <img src="whatsapp.png" alt="WhatsApp" />
+        </a> -->
+      </div>
+    </header>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero__container container">
+        <div class="hero__content">
+          <h1 class="hero__title" id="hero-title">
+            Seu Negócio Online<br />
+            com Autoridade<br />
+            e Conversão
+          </h1>
+
+          <p class="hero__subtitle">Desenvolvedor Frond-End</p>
+          <!-- <a class="button button--pill button--green hero__cta" href="#contato"
+            >Saiba Mais</a
+          > -->
+          <!-- <img
+            src="imagem do not 2.png"
+            alt="Imagem ao lado do título"
+            class="title-image"
+          /> -->
+        </div>
+
+        <div class="hero__art" aria-hidden="true">
+          <img src="../assets/imagem do not 2.png" alt="image__laptop" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FEATURES ===================== -->
+    <section class="features" id="servicos" aria-labelledby="features-title">
+      <div class="container">
+        <div class="features__flex">
+          <article class="card feature">
+            <div class="feature__icon" aria-hidden="true">
+              <span class="feature__glyph">▣</span>
+            </div>
+            <h3 class="feature__title">Criação de Sites Responsivos<br /></h3>
+            <p class="feature__text">
+              Sites modernos e adaptáveis para todos os dispositivos
+            </p>
+          </article>
+
+          <article class="card feature">
+            <div class="feature__icon" aria-hidden="true">
+              <span class="feature__glyph">⬒</span>
+            </div>
+            <h3 class="feature__title">
+              Landing Pages de Alta Conversão<br />
+            </h3>
+            <p class="feature__text">
+              Páginas estratégicas que transformam visitantes em clientes
+            </p>
+          </article>
+
+          <article class="card feature">
+            <div class="feature__icon" aria-hidden="true">
+              <span class="feature__glyph">◎</span>
+            </div>
+            <h3 class="feature__title">Automações com n8n<br /></h3>
+            <p class="feature__text">
+              Processos automaticos que economizam tempo e aumentam resultados
+            </p>
+          </article>
+          <article class="card feature">
+            <div class="feature__icon" aria-hidden="true">
+              <span class="feature__glyph">◎</span>
+            </div>
+            <h3 class="feature__title">Gestão do Google meu Negócio<br /></h3>
+            <p class="feature__text">
+              Otimização do perfil, postagens e atualizações
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PRICING ===================== -->
+    <section class="pricing" id="pacotes" aria-labelledby="pricing-title">
+      <div class="container">
+        <h2 class="section-title" id="pricing-title">Pacotes</h2>
+
+        <div class="pricing__grid">
+          <article class="card price price--muted">
+            <header class="price__header">
+              <h3 class="price__name">Básico - Presença Online</h3>
+            </header>
+            <ul class="price__list">
+              <li class="price__item">Lading page</li>
+              <li class="price__item">Desing moderno e responsivo</li>
+              <li class="price__item">Botão direto para o WhatsApp</li>
+              <li class="price__item">Entrega rápida</li>
+            </ul>
+            <a
+              class="button button--pill button--green price__cta"
+              href="#contato"
+              >Salta Mais</a
+            >
+          </article>
+
+          <article class="card price price--highlight">
+            <header class="price__header">
+              <h3 class="price__name">Intermediário - Crescimento</h3>
+            </header>
+            <ul class="price__list">
+              <li class="price__item">Site completo</li>
+              <li class="price__item">Formulário de Cadastro</li>
+              <li class="price__item">Botão de WhatsApp</li>
+              <li class="price__item">Seo do Google</li>
+            </ul>
+            <a
+              class="button button--pill button--teal price__cta"
+              href="#contato"
+              >Contratar Agora</a
+            >
+          </article>
+
+          <article class="card price price--muted">
+            <header class="price__header">
+              <h3 class="price__name">Premium - Maquina de Vendas</h3>
+            </header>
+            <ul class="price__list">
+              <li class="price__item">Site completo e personalizado</li>
+              <li class="price__item">Gestão de Google meu Negócio</li>
+              <li class="price__item">Seo do Google</li>
+              <li class="price__item">Automações com n8n</li>
+            </ul>
+            <a
+              class="button button--pill button--teal price__cta"
+              href="#contato"
+              >Contratar Agora</a
+            >
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PROJETOS ===================== -->
+    <!-- <section class="projeto" id="projeto" aria-labelledby="pojeto-title">
+      <div class="container">
+        <h2 class="section-title" id="projetos-title">Projetos</h2>
+        <div class="portfolio__grid">
+          <figure class="portfolio__item card">
+            <div class="portfolio__thumb" role="img" aria-label="Projeto 1">
+              <div class="portfolio__mock"></div>
+            </div>
+          </figure>
+          <figure class="portfolio__item card">
+            <div class="portfolio__thumb" role="img" aria-label="Projeto 2">
+              <div class="portfolio__mock"></div>
+            </div>
+          </figure>
+          <figure class="portfolio__item card">
+            <div class="portfolio__thumb" role="img" aria-label="Projeto 3">
+              <div class="portfolio__mock"></div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- ===================== ABOUT & CONTACT ===================== -->
+    <section class="about-contact" id="sobre" aria-labelledby="about-title">
+      <div class="container about-contact__container">
+        <article class="about">
+          <h2 class="section-title" id="about-title">Sobre</h2>
+          <p class="about__lead">
+            Transformar negócios locais em<br />
+            marcas fortes e visíveis no digital,<br />
+            com estratégias modernas<br />
+            e que realmente geram clientes.
+          </p>
+          <ul class="about__list">
+            <li class="about__item">Inovação e soluções simplificadas</li>
+            <li class="about__item">Ética e clareza na comunicação</li>
+            <li class="about__item">Entrega ágil sem perder qualidade</li>
+          </ul>
+          <!-- <div class="about__illustration" aria-hidden="true">
+            <svg viewBox="0 0 320 180">
+              <rect
+                x="20"
+                y="40"
+                width="140"
+                height="100"
+                rx="8"
+                fill="#1a2a4a"
+              ></rect>
+              <rect
+                x="180"
+                y="80"
+                width="120"
+                height="50"
+                rx="8"
+                fill="#1a2a4a"
+              ></rect>
+              <circle cx="260" cy="70" r="10" fill="#1a2a4a"></circle>
+            </svg>
+          </div> -->
+        </article>
+
+        <aside class="contact" id="contato">
+          <h2 class="section-title">Contato</h2>
+          <form class="form" action="#" method="post" novalidate>
+            <div class="form__row">
+              <label class="form__label" for="nome">Nome</label>
+              <input
+                class="form__control"
+                id="nome"
+                name="nome"
+                type="text"
+                placeholder="Nome"
+              />
+            </div>
+            <div class="form__row">
+              <label class="form__label" for="email">Email</label>
+              <input
+                class="form__control"
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Email"
+              />
+            </div>
+            <div class="form__row">
+              <label class="form__label" for="tel">Telefone</label>
+              <input
+                class="form__control"
+                id="tel"
+                name="tel"
+                type="tel"
+                placeholder="Telefone"
+              />
+            </div>
+            <div class="form__row">
+              <label class="form__label" for="msg">Mensagem</label>
+              <textarea
+                class="form__control form__control--textarea"
+                id="msg"
+                name="mensagem"
+                placeholder="Mensagem"
+              ></textarea>
+            </div>
+            <button
+              class="button button--pill button--purple form__submit"
+              type="submit"
+            >
+              Enviar
+            </button>
+          </form>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+      <div class="container footer__container">
+        <p class="footer__copy">© 2025 Front End</p>
+      </div>
+    </footer>
+
+    <script src="./script/index.js" defer></script>
+
+    <!-- Rodapé -->
+    <footer>
+      <div class="social-icons">
+        <a
+          href="https://www.instagram.com/hhudson.oliveira"
+          target="_blank"
+          aria-label="Instagram"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a
+          href="https://www.facebook.com/hhudson.oliveira"
+          target="_blank"
+          aria-label="Facebook"
+        >
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/hudson-oliveira-santos"
+          target="_blank"
+          aria-label="LinkedIn"
+        >
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>
