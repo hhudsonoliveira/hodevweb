@@ -58,7 +58,7 @@
               <a class="nav__link" href="#pacotes">Pacotes</a>
             </li>
             <li class="nav__item">
-              <a class="nav__link" href="#portifolio">Projetos</a>
+              <a class="nav__link" id="openProjectsBtn" href="#portifolio">Projetos</a>
             </li>
             <li class="nav__item">
               <a class="nav__link" href="#sobre">Sobre</a>
@@ -74,7 +74,16 @@
         </a> -->
       </div>
     </header>
-
+    
+    <!-- Modal de Projetos -->
+<div id="projectsModal" class="modal">
+  <div class="modal__overlay"></div>
+  <div class="modal__content">
+    <button class="modal__close" id="closeModalBtn">&times;</button>
+    <h2 class="modal__title">Meus Projetos</h2>
+    <div id="projectsContainer" class="projects__grid"></div>
+  </div>
+</div>
     <!-- ===================== HERO ===================== -->
     <section class="hero" id="inicio" aria-labelledby="hero-title">
       <div class="hero__container container">
@@ -180,7 +189,7 @@
             <a
               class="button button--pill button--green price__cta"
               href="#contato"
-              >Salta Mais</a
+              >Saiba Mais</a
             >
           </article>
 
@@ -197,7 +206,7 @@
             <a
               class="button button--pill button--teal price__cta"
               href="#contato"
-              >Contratar Agora</a
+              >Saiba Mais</a
             >
           </article>
 
@@ -214,7 +223,7 @@
             <a
               class="button button--pill button--teal price__cta"
               href="#contato"
-              >Contratar Agora</a
+              >Saiba Mais</a
             >
           </article>
         </div>
