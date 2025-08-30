@@ -1,0 +1,17 @@
+{
+    "name": "hodevwebtests",
+    "version": "1.0.0",
+    "description": "Testes end-to-end com Cypress para hodevweb",
+    "main": "index.js",
+    "scripts": {
+      "cypress:open": "cypress open",
+      "cypress:run": "cypress run"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+      "cypress": "^13.6.2"
+    }
+  }
+  
