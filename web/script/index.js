@@ -280,6 +280,13 @@ function hideFormAlert() {
   if (alertBox) alertBox.classList.add("hidden");
 }
 
+function clearFormFields(nameInput, emailInput, phoneInput, messageInput) {
+  nameInput.value = ""
+  emailInput.value = ""
+  phoneInput.value = ""
+  messageInput.value = ""
+}
+
 // Botão fechar (protege se elemento não existir)
 const alertCloseBtn = document.getElementById("formAlertClose");
 if (alertCloseBtn) alertCloseBtn.addEventListener("click", hideFormAlert);
@@ -339,6 +346,7 @@ function handleFormSubmit(event) {
   if (isValid) {
     // Dados limpos prontos para envio ao servidor (que deve usar prepared statements)
     console.log("Form submitted:", { name, email, phone, message });
+    clearFormFields(nameInput, emailInput, phoneInput, messageInput)
     showFormAlert("success", "Formulário enviado com sucesso!");
     event.target.reset();
   }
