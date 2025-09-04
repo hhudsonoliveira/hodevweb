@@ -349,3 +349,4 @@ function handleFormSubmit(event) {
 // ============================
 document.getElementById("send").addEventListener("click", handleFormSubmit);
 
+console.log("colaborando com o serviço no GitHub");
