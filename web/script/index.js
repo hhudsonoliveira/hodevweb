@@ -357,5 +357,72 @@ function handleFormSubmit(event) {
 // ============================
 document.getElementById("send").addEventListener("click", handleFormSubmit);
 
-// work with send email
+
+
+
+// FALTA ALGUMAS CONFIGS E TESTAR
+
+// ============================
+// Service: EmailService
+// Responsável apenas por enviar emails via EmailJS
+// ============================
+class EmailService {
+  constructor(serviceId, templateId, publicKey) {
+    this.serviceId = serviceId;
+    this.templateId = templateId;
+    emailjs.init({ publicKey });
+  }
+
+  async send(formElement) {
+    try {
+      return await emailjs.sendForm(this.serviceId, this.templateId, formElement);
+    } catch (error) {
+      throw new Error("Erro ao enviar email: " + error.text);
+    }
+  }
+}
+
+// ============================
+// Handler: FormHandler
+// Responsável por gerenciar o formulário
+// ============================
+class FormHandler {
+  constructor(formId, emailService) {
+    this.form = document.getElementById(formId);
+    this.emailService = emailService;
+  }
+
+  initialize() {
+    this.form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      await this.handleSubmit();
+    });
+  }
+
+  async handleSubmit() {
+    try {
+      await this.emailService.send(this.form);
+      alert("Mensagem enviada com sucesso! ✅");
+      this.form.reset();
+    } catch (error) {
+      console.error(error);
+      alert("Falha ao enviar a mensagem ❌");
+    }
+  }
+}
+
+// ============================
+// App Initialization
+// ============================
+document.addEventListener("DOMContentLoaded", () => {
+  const emailService = new EmailService(
+    "service_yq8he0m",   // service_id
+    "template_ciu2478", // template_id
+    "K2JLEx06aJ9iVaPlK" // substitua pela sua publicKey do EmailJS
+  );
+
+  const formHandler = new FormHandler("contact-form", emailService);
+  formHandler.initialize();
+});
+
 
