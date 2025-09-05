@@ -4,38 +4,38 @@
 
 class Project {
   constructor(title, description, image, link) {
-    this.title = title
-    this.description = description
-    this.image = image
-    this.link = link
+    this.title = title;
+    this.description = description;
+    this.image = image;
+    this.link = link;
   }
 }
 
 class ProjectBuilder {
   constructor() {
-    this.title = ""
-    this.description = ""
-    this.image = ""
-    this.link = "#"
+    this.title = "";
+    this.description = "";
+    this.image = "";
+    this.link = "#";
   }
   setTitle(title) {
-    this.title = title
-    return this
+    this.title = title;
+    return this;
   }
   setDescription(description) {
-    this.description = description
-    return this
+    this.description = description;
+    return this;
   }
   setImage(image) {
-    this.image = image
-    return this
+    this.image = image;
+    return this;
   }
   setLink(link) {
-    this.link = link
-    return this
+    this.link = link;
+    return this;
   }
   build() {
-    return new Project(this.title, this.description, this.image, this.link)
+    return new Project(this.title, this.description, this.image, this.link);
   }
 }
 
@@ -45,48 +45,47 @@ class ProjectBuilder {
 
 class ProjectsModal {
   constructor(modalId, openBtnId, closeBtnId, projectsContainerId) {
-    this.modal = document.getElementById(modalId)
-    this.openBtn = document.getElementById(openBtnId)
-    this.closeBtn = document.getElementById(closeBtnId)
-    this.overlay = this.modal.querySelector(".modal__overlay")
-    this.container = document.getElementById(projectsContainerId)
+    this.modal = document.getElementById(modalId);
+    this.openBtn = document.getElementById(openBtnId);
+    this.closeBtn = document.getElementById(closeBtnId);
+    this.overlay = this.modal.querySelector(".modal__overlay");
+    this.container = document.getElementById(projectsContainerId);
 
-    this.initEvents()
+    this.initEvents();
   }
 
   initEvents() {
-    this.openBtn.addEventListener("click", () => this.open())
-    this.closeBtn.addEventListener("click", () => this.close())
-    this.overlay.addEventListener("click", () => this.close())
+    this.openBtn.addEventListener("click", () => this.open());
+    this.closeBtn.addEventListener("click", () => this.close());
+    this.overlay.addEventListener("click", () => this.close());
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") this.close()
-    })
+      if (e.key === "Escape") this.close();
+    });
   }
 
   open() {
-    this.modal.classList.add("is-active")
+    this.modal.classList.add("is-active");
   }
 
   close() {
-    this.modal.classList.remove("is-active")
+    this.modal.classList.remove("is-active");
   }
 
   renderProjects(projects) {
-    this.container.innerHTML = ""
+    this.container.innerHTML = "";
     projects.forEach((p) => {
-      const card = document.createElement("div")
-      card.className = "project-card"
+      const card = document.createElement("div");
+      card.className = "project-card";
       card.innerHTML = `
         <img src="${p.image}" alt="${p.title}">
         <h3>${p.title}</h3>
         <p>${p.description}</p>
         <a href="${p.link}" target="_blank" rel="noopener noreferrer">Acessar</a>
-      `
-      this.container.appendChild(card)
-    })
+      `;
+      this.container.appendChild(card);
+    });
   }
 }
-
 
 // =======================
 // Inicialização
@@ -135,7 +134,7 @@ class ProjectsModal {
       * Name: only letters (incl. accents), spaces, hyphen, apostrophe.
       * Email: remove chars fora de [a-z0-9._%+-@] e normaliza para minúsculas.
       * Phone: mantém dígitos e um único '+' no início; remove demais.
-     / * Message: remove tags HTML, tokens de comentário (/* */ //, --), 
+     / * Message: remove tags HTML, tokens de comentário (/* */ //, --),
 /*terminadores (';'), aspas/backticks, chaves {}, backslash, 
 sequence "javascript:" e normaliza espaços.
 - Unicode NFKC normalization: mitiga homógrafos/compatibility forms.
@@ -155,7 +154,6 @@ function normalizeUnicode(str) {
 }
 
 function stripControls(str, { keepNewlines = false } = {}) {
-  // remove ASCII controls; mantém \n e \t se solicitado
   const re = keepNewlines
     ? /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g
     : /[\u0000-\u001F\u007F]/g;
@@ -166,64 +164,47 @@ function stripControls(str, { keepNewlines = false } = {}) {
 // Sanitizers (SRP: one per field)
 // ============================
 
-// Nome: apenas letras (com acentos), espaços, hífen e apóstrofo
 function sanitizeName(input) {
   let s = normalizeUnicode(input);
   s = stripControls(s);
-  s = s.replace(/[^\p{L}\s'-]/gu, ""); // allowlist
+  s = s.replace(/[^\p{L}\s'-]/gu, "");
   s = s.replace(/\s{2,}/g, " ").trim();
   return s.slice(0, 80);
 }
 
-// Email: remove espaços e caracteres inválidos, normaliza minúsculas
 function sanitizeEmail(input) {
   let s = normalizeUnicode(input).trim().toLowerCase();
   s = stripControls(s);
-  s = s.replace(/[^a-z0-9._%+\-@]/g, ""); // allowlist
-  // garante no máx. um '@'
+  s = s.replace(/[^a-z0-9._%+\-@]/g, "");
   const parts = s.split("@");
   if (parts.length > 2) s = parts.slice(0, 2).join("@");
   return s.slice(0, 254);
 }
 
-// Telefone: mantém dígitos e um '+' no início
 function sanitizePhone(input) {
   let s = normalizeUnicode(input);
   s = stripControls(s);
-  s = s.replace(/[^\d+]/g, "");      // remove tudo que não é dígito ou '+'
-  s = s.replace(/(?!^)\+/g, "");     // remove '+' que não seja o primeiro
-  s = s.replace(/^\+?0+/, (m) => (m.startsWith("+") ? "+" : "")); // remove zeros à esquerda
+  s = s.replace(/[^\d+]/g, "");
+  s = s.replace(/(?!^)\+/g, "");
+  s = s.replace(/^\+?0+/, (m) => (m.startsWith("+") ? "+" : ""));
   return s.slice(0, 16);
 }
 
-// Mensagem: forte contra XSS / tokens comuns de SQLi
 function sanitizeMessage(input) {
   let s = normalizeUnicode(input);
   s = stripControls(s, { keepNewlines: true });
-
-  // remove tags HTML e ângulos
   s = s.replace(/<[^>]*>/g, "");
   s = s.replace(/[<>]/g, "");
-
-  // remove comentários e terminadores comuns
-  s = s.replace(/\/\*[\s\S]*?\*\//g, ""); // /* ... */
-  s = s.replace(/--/g, "");               // --
-  s = s.replace(/;/g, "");                // ;
-
-  // remove aspas/backticks/backslash, chaves e $
+  s = s.replace(/\/\*[\s\S]*?\*\//g, "");
+  s = s.replace(/--/g, "");
+  s = s.replace(/;/g, "");
   s = s.replace(/['"`\\]/g, "");
   s = s.replace(/[{}$]/g, "");
-
-  // remove "javascript:" (evita payloads de URL)
   s = s.replace(/\bjavascript\s*:/gi, "");
-
-  // colapsa espaços
   s = s.replace(/[ \t]{2,}/g, " ").trim();
-
   return s.slice(0, 2000);
 }
 
-// Fallback (não usado diretamente, mantido por compatibilidade)
 function sanitizeInput(input) {
   return sanitizeMessage(input);
 }
@@ -241,12 +222,12 @@ function isValidEmail(email) {
 }
 
 function isValidPhone(phone) {
-  const regex = /^\+?\d{8,15}$/; // Aceita formatos internacionais
+  const regex = /^\+?\d{8,15}$/;
   return regex.test(phone);
 }
 
 function isValidMessage(message) {
-  return message.length >= 5; // mínimo de 5 caracteres
+  return message.length >= 5;
 }
 
 // ============================
@@ -266,11 +247,10 @@ function showFormAlert(type, message) {
   const alertMessage = document.getElementById("formAlertMessage");
   if (!alertBox || !alertMessage) return;
 
-  alertMessage.textContent = message; // evita XSS
+  alertMessage.textContent = message;
   alertBox.className = `form-alert ${type}`;
   alertBox.classList.remove("hidden");
 
-  // Fecha automaticamente após 10s
   window.clearTimeout(showFormAlert._t);
   showFormAlert._t = window.setTimeout(hideFormAlert, 10000);
 }
@@ -281,20 +261,52 @@ function hideFormAlert() {
 }
 
 function clearFormFields(nameInput, emailInput, phoneInput, messageInput) {
-  nameInput.value = ""
-  emailInput.value = ""
-  phoneInput.value = ""
-  messageInput.value = ""
+  nameInput.value = "";
+  emailInput.value = "";
+  phoneInput.value = "";
+  messageInput.value = "";
 }
 
-// Botão fechar (protege se elemento não existir)
 const alertCloseBtn = document.getElementById("formAlertClose");
 if (alertCloseBtn) alertCloseBtn.addEventListener("click", hideFormAlert);
 
 // ============================
-// Form Handler
+// Email Service (SRP: só envia email)
 // ============================
-function handleFormSubmit(event) {
+class EmailService {
+  constructor(serviceId, templateId, publicKey) {
+    this.serviceId = serviceId;
+    this.templateId = templateId;
+    this.publicKey = publicKey;
+    emailjs.init(this.publicKey);
+  }
+
+  async sendEmail({ name, email, phone, message }) {
+    const templateParams = {
+      from_name: name,
+      from_email: email,
+      phone: phone,
+      message: message,
+    };
+
+    try {
+      const response = await emailjs.send(
+        this.serviceId,
+        this.templateId,
+        templateParams
+      );
+      return { success: true, response };
+    } catch (error) {
+      console.error("Erro ao enviar email:", error);
+      return { success: false, error };
+    }
+  }
+}
+
+// ============================
+// Form Handler (SRP: valida + chama serviços)
+// ============================
+async function handleFormSubmit(event) {
   event.preventDefault();
 
   const nameInput = document.getElementById("nome");
@@ -302,7 +314,6 @@ function handleFormSubmit(event) {
   const phoneInput = document.getElementById("tel");
   const messageInput = document.getElementById("msg");
 
-  // Sanitização por campo (e escreve de volta nos inputs)
   const name = sanitizeName(nameInput.value);
   const email = sanitizeEmail(emailInput.value);
   const phone = sanitizePhone(phoneInput.value);
@@ -318,37 +329,51 @@ function handleFormSubmit(event) {
   if (!isNotEmpty(name)) {
     showError(nameInput, "O nome é obrigatório.");
     isValid = false;
-  } else {
-    clearError(nameInput);
-  }
+  } else clearError(nameInput);
 
   if (!isValidEmail(email)) {
     showError(emailInput, "Formato de e-mail inválido.");
     isValid = false;
-  } else {
-    clearError(emailInput);
-  }
+  } else clearError(emailInput);
 
   if (!isValidPhone(phone)) {
-    showError(phoneInput, "O telefone deve conter apenas números (8 a 15 dígitos).");
+    showError(
+      phoneInput,
+      "O telefone deve conter apenas números (8 a 15 dígitos)."
+    );
     isValid = false;
-  } else {
-    clearError(phoneInput);
-  }
+  } else clearError(phoneInput);
 
   if (!isValidMessage(message)) {
     showError(messageInput, "A mensagem deve ter pelo menos 5 caracteres.");
     isValid = false;
-  } else {
-    clearError(messageInput);
-  }
+  } else clearError(messageInput);
 
-  if (isValid) {
-    // Dados limpos prontos para envio ao servidor (que deve usar prepared statements)
-    console.log("Form submitted:", { name, email, phone, message });
-    clearFormFields(nameInput, emailInput, phoneInput, messageInput)
+  if (!isValid) return;
+
+  const emailService = new EmailService(
+    "service_yq8he0m",
+    "template_ciu2478",
+    "K2JLEx06aJ9iVaPlK"
+  );
+
+  const result = await emailService.sendEmail({
+    name,
+    email,
+    phone,
+    message,
+    timestamp: new Date().toLocaleString("pt-BR"),
+  });
+  console.log(result);
+
+  if (result.success) {
+    clearFormFields(nameInput, emailInput, phoneInput, messageInput);
     showFormAlert("success", "Formulário enviado com sucesso!");
-    event.target.reset();
+  } else {
+    showFormAlert(
+      "error",
+      "Falha ao enviar mensagem. Tente novamente mais tarde."
+    );
   }
 }
 
@@ -356,73 +381,3 @@ function handleFormSubmit(event) {
 // Init
 // ============================
 document.getElementById("send").addEventListener("click", handleFormSubmit);
-
-
-
-
-// FALTA ALGUMAS CONFIGS E TESTAR
-
-// ============================
-// Service: EmailService
-// Responsável apenas por enviar emails via EmailJS
-// ============================
-class EmailService {
-  constructor(serviceId, templateId, publicKey) {
-    this.serviceId = serviceId;
-    this.templateId = templateId;
-    emailjs.init({ publicKey });
-  }
-
-  async send(formElement) {
-    try {
-      return await emailjs.sendForm(this.serviceId, this.templateId, formElement);
-    } catch (error) {
-      throw new Error("Erro ao enviar email: " + error.text);
-    }
-  }
-}
-
-// ============================
-// Handler: FormHandler
-// Responsável por gerenciar o formulário
-// ============================
-class FormHandler {
-  constructor(formId, emailService) {
-    this.form = document.getElementById(formId);
-    this.emailService = emailService;
-  }
-
-  initialize() {
-    this.form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      await this.handleSubmit();
-    });
-  }
-
-  async handleSubmit() {
-    try {
-      await this.emailService.send(this.form);
-      alert("Mensagem enviada com sucesso! ✅");
-      this.form.reset();
-    } catch (error) {
-      console.error(error);
-      alert("Falha ao enviar a mensagem ❌");
-    }
-  }
-}
-
-// ============================
-// App Initialization
-// ============================
-document.addEventListener("DOMContentLoaded", () => {
-  const emailService = new EmailService(
-    "service_yq8he0m",   // service_id
-    "template_ciu2478", // template_id
-    "K2JLEx06aJ9iVaPlK" // substitua pela sua publicKey do EmailJS
-  );
-
-  const formHandler = new FormHandler("contact-form", emailService);
-  formHandler.initialize();
-});
-
-
