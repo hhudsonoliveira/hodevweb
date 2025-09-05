@@ -283,9 +283,10 @@ class EmailService {
 
   async sendEmail({ name, email, phone, message }) {
     const templateParams = {
-      from_name: name,
-      from_email: email,
+      name,
+      email,
       phone: phone,
+      timestamp: new Date().toLocaleString("pt-BR"),
       message: message,
     };
 
@@ -362,7 +363,6 @@ async function handleFormSubmit(event) {
     email,
     phone,
     message,
-    timestamp: new Date().toLocaleString("pt-BR"),
   });
   console.log(result);
 
