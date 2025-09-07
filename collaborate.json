@@ -1,10 +1,16 @@
 {
-    "collaborate": [
-        {
-            "user_estudantedevsenior-a11y": "https://github.com/estudantedevsenior-a11y/hodevweb"
-        },
-        {
-            "user_Leozin89python": "https://github.com/Leozin89python/hodevweb"
-        }
-    ]
+  "collaborate": [
+    {
+      "user_estudantedevsenior-a11y": "https://github.com/estudantedevsenior-a11y/hodevweb"
+    },
+    {
+      "user_Leozin89python-main-repository": "https://github.com/Leozin89python/hodevweb"
+    },
+    {
+      "user_hhudsonoliveira": "https://github.com/hhudsonoliveira/hodevweb"
+    },
+    {
+      "user_LeonardoSousa89": "https://github.com/LeonardoSousa89/hodevweb"
+    }
+  ]
 }
