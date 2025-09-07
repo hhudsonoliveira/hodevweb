@@ -205,6 +205,10 @@
     </div>
   </section>
 
+  <!-- ====================================================== -->
+  <!-- Quando criar os projetos descomente o código abaixo -->
+  <!-- ====================================================== -->
+
   <!-- ===================== PROJETOS ===================== -->
   <!-- <section class="projeto" id="projeto" aria-labelledby="pojeto-title">
       <div class="container">
@@ -245,79 +249,7 @@
           <li class="about__item">Ética e clareza na comunicação</li>
           <li class="about__item">Entrega ágil sem perder qualidade</li>
         </ul>
-        <!-- <div class="about__illustration" aria-hidden="true">
-            <svg viewBox="0 0 320 180">
-              <rect
-                x="20"
-                y="40"
-                width="140"
-                height="100"
-                rx="8"
-                fill="#1a2a4a"
-              ></rect>
-              <rect
-                x="180"
-                y="80"
-                width="120"
-                height="50"
-                rx="8"
-                fill="#1a2a4a"
-              ></rect>
-              <circle cx="260" cy="70" r="10" fill="#1a2a4a"></circle>
-            </svg>
-          </div> -->
       </article>
-
-      <!-- <aside class="contact" id="contato">
-          <h2 class="section-title">Contato</h2>
-          <form class="form">
-            <div class="form__row">
-              <label class="form__label" for="nome">Nome</label>
-              <input
-                class="form__control"
-                id="nome"
-                name="nome"
-                type="text"
-                placeholder="Nome"
-              />
-            </div>
-            <div class="form__row">
-              <label class="form__label" for="email">Email</label>
-              <input
-                class="form__control"
-                id="email"
-                name="email"
-                type="email"
-                placeholder="Email"
-              />
-            </div>
-            <div class="form__row">
-              <label class="form__label" for="tel">Telefone</label>
-              <input
-                class="form__control"
-                id="tel"
-                name="tel"
-                type="tel"
-                placeholder="Telefone"
-              />
-            </div>
-            <div class="form__row">
-              <label class="form__label" for="msg">Mensagem</label>
-              <textarea
-                class="form__control form__control--textarea"
-                id="msg"
-                name="mensagem"
-                placeholder="Mensagem"
-              ></textarea>
-            </div>
-            <button
-              class="button button--pill button--purple form__submit"
-              id="send"
-            >
-              Enviar
-            </button>
-          </form>
-        </aside> -->
 
       <!-- novo código a testar -->
       <aside class="contact" id="contato">
@@ -364,8 +296,6 @@
     </div>
   </footer>
 
-  <script src="./script/index.js" defer></script>
-
   <!-- Rodapé -->
   <footer>
     <div class="social-icons">
@@ -380,6 +310,17 @@
       </a>
     </div>
   </footer>
+
+  <script src="./script/index.js" defer></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function () {
+      emailjs.init({
+        publicKey: "K2JLEx06aJ9iVaPlK"
+      });
+    })();
+  </script>
+
 </body>
 
 </html>
