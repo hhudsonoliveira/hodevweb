@@ -381,3 +381,8 @@ async function handleFormSubmit(event) {
 // Init
 // ============================
 document.getElementById("send").addEventListener("click", handleFormSubmit);
+
+document.querySelector(".nav__toggle").addEventListener("click", (e) => {
+  e.preventDefault();
+  console.log(e.target);
+})
