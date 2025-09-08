@@ -671,7 +671,8 @@ body.page {
   }
 
   .nav__toggle {
-    display: inline-flex;
+    display: flex;
+    flex-direction: column;
   }
 
   .nav__list {
