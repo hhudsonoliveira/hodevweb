@@ -110,6 +110,13 @@ body.page {
   display: none;
   background: none;
   border: 0;
+  cursor: pointer;
+  padding: 8px;
+  transition: transform 0.3s ease;
+}
+
+.nav__toggle:hover {
+  transform: scale(1.1);
 }
 
 .nav__bar {
@@ -119,6 +126,22 @@ body.page {
   background: #7e8db3;
   margin: 5px 0;
   border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Animação do hamburger para X */
+.nav__toggle.is-active .nav__bar:nth-child(1) {
+  transform: rotate(45deg) translate(7px, 7px);
+  background: var(--text);
+}
+
+.nav__toggle.is-active .nav__bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__toggle.is-active .nav__bar:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+  background: var(--text);
 }
 
 .nav__list {
@@ -712,6 +735,8 @@ body.page {
 
   .nav__toggle {
     display: inline-flex;
+    flex-direction: column;
+    z-index: 60;
   }
 
   .nav__list {
@@ -721,14 +746,62 @@ body.page {
     display: none;
     flex-direction: column;
     gap: 10px;
-    padding: 14px;
+    padding: 18px;
     background: rgba(8, 18, 42, 0.98);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: saturate(180%) blur(12px);
+    border: 1px solid rgba(132, 120, 255, 0.3);
     border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    min-width: 200px;
+    animation: slideDown 0.3s ease;
   }
 
   .nav__list.is-open {
     display: flex;
+  }
+
+  .nav__item {
+    opacity: 0;
+    animation: fadeInItem 0.3s ease forwards;
+  }
+
+  .nav__list.is-open .nav__item:nth-child(1) { animation-delay: 0.05s; }
+  .nav__list.is-open .nav__item:nth-child(2) { animation-delay: 0.1s; }
+  .nav__list.is-open .nav__item:nth-child(3) { animation-delay: 0.15s; }
+  .nav__list.is-open .nav__item:nth-child(4) { animation-delay: 0.2s; }
+  .nav__list.is-open .nav__item:nth-child(5) { animation-delay: 0.25s; }
+
+  .nav__link {
+    padding: 10px 14px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .nav__link:hover {
+    background: rgba(108, 92, 231, 0.2);
+    transform: translateX(4px);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInItem {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   /* Footer responsivo em mobile */
@@ -753,25 +826,137 @@ body.page {
   }
 }
 
+/* ==========================================================================
+   WhatsApp Floating Button
+   ========================================================================== */
 .whatsapp-button {
   position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 100;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.5),
+              0 8px 32px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: whatsappPulse 2.5s ease-in-out infinite;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.whatsapp-button img {
-  width: 50px;
-  height: auto;
+.whatsapp-button::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.15) translateY(-2px);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.7),
+              0 12px 48px rgba(0, 0, 0, 0.5);
+}
+
+.whatsapp-button:hover::before {
+  opacity: 0.3;
+  animation: ripple 1s ease-out infinite;
+}
+
+.whatsapp-button:active {
+  transform: scale(1.05);
+}
+
+/* Ícone do WhatsApp SVG */
+.whatsapp-button svg {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-button:hover svg {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Tooltip opcional */
+.whatsapp-button::after {
+  content: 'Fale conosco';
+  position: absolute;
+  right: 72px;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.whatsapp-button:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Animações */
+@keyframes whatsappPulse {
+  0%, 100% {
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.5),
+                0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.7),
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 0 0 12px rgba(37, 211, 102, 0.15);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .whatsapp-button {
+    bottom: 20px;
+    right: 20px;
+    width: 58px;
+    height: 58px;
+  }
+
+  .whatsapp-button svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Esconde tooltip no mobile */
+  .whatsapp-button::after {
+    display: none;
+  }
 }
 
 .logo {
-  position: fixed;
-  top: 10px;
-  left: 10px;
   width: 50px;
   height: auto;
-  z-index: 100;
 }
 
 .title-image {

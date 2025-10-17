@@ -425,9 +425,51 @@ async function handleFormSubmit(event) {
 }
 
 // ============================
+// Mobile Menu Toggle with Animation
+// ============================
+function initMobileMenu() {
+  const navToggle = document.querySelector(".nav__toggle");
+  const navList = document.querySelector(".nav__list");
+  const navLinks = document.querySelectorAll(".nav__link");
+
+  if (!navToggle || !navList) return;
+
+  // Toggle menu
+  navToggle.addEventListener("click", () => {
+    navToggle.classList.toggle("is-active");
+    navList.classList.toggle("is-open");
+
+    // Update aria-expanded for accessibility
+    const isOpen = navList.classList.contains("is-open");
+    navToggle.setAttribute("aria-expanded", isOpen);
+  });
+
+  // Close menu when clicking on a link
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      navToggle.classList.remove("is-active");
+      navList.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!navToggle.contains(e.target) && !navList.contains(e.target)) {
+      navToggle.classList.remove("is-active");
+      navList.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+}
+
+// ============================
 // Init - Wrap event listeners in DOMContentLoaded for safety
 // ============================
 document.addEventListener("DOMContentLoaded", () => {
+  // Initialize mobile menu
+  initMobileMenu();
+
   // Form submit handler
   const sendButton = document.getElementById("send");
   if (sendButton) {
@@ -444,25 +486,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // Projects Modal Initialization
   // ============================
 
-  // Criar projetos de exemplo com ícones Lucide
+  // Projetos reais desenvolvidos pela Hodevweb
   const projects = [
     new ProjectBuilder()
-      .setTitle("Website Responsivo")
-      .setDescription("Criação de site moderno e adaptável para todos os dispositivos.")
-      .setIcon("monitor")
-      .setLink("https://exemplo.com/projeto1")
+      .setTitle("Caique Imobiliária")
+      .setDescription("Site responsivo completo para imobiliária com design moderno e navegação intuitiva.")
+      .setIcon("home")
+      .setLink("https://caiqueimoveis.com.br")
       .build(),
     new ProjectBuilder()
-      .setTitle("Landing Page de Conversão")
-      .setDescription("Página de alta conversão para captação de clientes e vendas.")
-      .setIcon("target")
-      .setLink("https://exemplo.com/projeto2")
+      .setTitle("Barbearia Profissional")
+      .setDescription("Website responsivo para barbearia com agendamento e galeria de serviços.")
+      .setIcon("scissors")
+      .setLink("https://hhudsonoliveira.github.io/Barbearia/")
       .build(),
     new ProjectBuilder()
-      .setTitle("Automação com n8n")
-      .setDescription("Fluxos automatizados para otimizar processos empresariais.")
-      .setIcon("workflow")
-      .setLink("https://exemplo.com/projeto3")
+      .setTitle("JV Beleza e Estética")
+      .setDescription("Landing page de alta conversão para clínica de estética, focada em captação de clientes.")
+      .setIcon("sparkles")
+      .setLink("https://hhudsonoliveira.github.io/JV-beleza-e-est-tica/")
       .build(),
   ];
 
