@@ -72,6 +72,9 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 *.code-workspace
 
+# Claude Code
+.claude/
+
 # JetBrains (WebStorm, IntelliJ, etc)
 .idea/
 *.iml
