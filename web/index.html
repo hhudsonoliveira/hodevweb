@@ -4,11 +4,32 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Landing - Freelancer Front End</title>
-  <title>Página com Logo</title>
+
+  <!-- SEO Meta Tags -->
+  <title>Hodevweb - Desenvolvimento Front-End e Soluções Digitais</title>
+  <meta name="description" content="Desenvolvimento de sites responsivos, landing pages de alta conversão e automações com n8n. Transforme seu negócio online com soluções profissionais." />
+  <meta name="keywords" content="desenvolvimento web, front-end, landing page, sites responsivos, automação n8n, Google meu Negócio" />
+  <meta name="author" content="Hudson Oliveira" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Hodevweb - Desenvolvimento Front-End e Soluções Digitais" />
+  <meta property="og:description" content="Desenvolvimento de sites responsivos, landing pages de alta conversão e automações com n8n." />
+  <meta property="og:url" content="https://hodevweb.com" />
+  <meta property="og:image" content="https://hodevweb.com/assets/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Hodevweb - Desenvolvimento Front-End" />
+  <meta name="twitter:description" content="Soluções profissionais para seu negócio online" />
+  <meta name="twitter:image" content="https://hodevweb.com/assets/twitter-image.png" />
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#6c5ce7" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <title>Página com Logo, Título, Imagem e WhatsApp</title>
   <link rel="stylesheet" href="./style/index.css" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
@@ -20,11 +41,11 @@
   <!-- ===================== HEADER ===================== -->
   <header class="header">
     <div class="header__container container">
-      <a href="#" class="header__brand" aria-label="Logo">
-        <img src="./assets/Logo.png" alt="Logo Marca" class="logo" />
+      <a href="#" class="header__brand" aria-label="Logo Hodevweb">
+        <img src="./assets/Logo.png" alt="Logo Hodevweb" class="logo" width="50" height="50" />
 
-        <a href="https://wa.me/5571996466575" class="whatsapp-button" target="_blank">
-          <img src="./assets/whatsapp.png" alt="WhatsApp" />
+        <a href="https://wa.me/5571996466575" class="whatsapp-button" target="_blank" rel="noopener noreferrer" aria-label="Entre em contato via WhatsApp">
+          <img src="./assets/whatsapp.png" alt="WhatsApp" width="50" height="50" loading="lazy" />
         </a>
       </a>
 
@@ -43,25 +64,15 @@
             <a class="nav__link" href="#pacotes">Pacotes</a>
           </li>
 
-          <!-- ====================================================== -->
-          <!-- Quando criar os projetos descomente o código abaixo -->
-          <!-- ====================================================== -->
-          <!-- <li class="nav__item">
-              <a class="nav__link" id="openProjectsBtn" href="#portifolio">Projetos</a>
-            </li> -->
+          <li class="nav__item">
+            <a class="nav__link" id="openProjectsBtn" href="#projetos">Projetos</a>
+          </li>
 
           <li class="nav__item">
             <a class="nav__link" href="#sobre">Sobre</a>
           </li>
         </ul>
       </nav>
-
-      <!-- <a
-          href="#contato"></a>
-          
-         <a href="https://wa.me/5571996466575" class="whatsapp-button" target="_blank">
-        <img src="whatsapp.png" alt="WhatsApp" />
-        </a> -->
     </div>
   </header>
 
@@ -84,19 +95,11 @@
           e Conversão
         </h1>
 
-        <p class="hero__subtitle">Desenvolvedor Frond-End</p>
-        <!-- <a class="button button--pill button--green hero__cta" href="#contato"
-            >Saiba Mais</a
-          > -->
-        <!-- <img
-            src="imagem do not 2.png"
-            alt="Imagem ao lado do título"
-            class="title-image"
-          /> -->
+        <p class="hero__subtitle">Desenvolvedor <span lang="en">Front-End</span></p>
       </div>
 
       <div class="hero__art" aria-hidden="true">
-        <img src="./assets/imagem do not 2.png" alt="image__laptop" />
+        <img src="./assets/imagem do not 2.png" alt="Ilustração de laptop representando desenvolvimento web" width="500" height="400" loading="lazy" />
       </div>
     </div>
   </section>
@@ -120,7 +123,7 @@
             <span class="feature__glyph">⬒</span>
           </div>
           <h3 class="feature__title">
-            Landing Pages de Alta Conversão<br />
+            <span lang="en">Landing Pages</span> de Alta Conversão<br />
           </h3>
           <p class="feature__text">
             Páginas estratégicas que transformam visitantes em clientes
@@ -133,7 +136,7 @@
           </div>
           <h3 class="feature__title">Automações com n8n<br /></h3>
           <p class="feature__text">
-            Processos automaticos que economizam tempo e aumentam resultados
+            Processos automáticos que economizam tempo e aumentam resultados
           </p>
         </article>
         <article class="card feature">
@@ -165,8 +168,8 @@
             <h3 class="price__name">Básico - Presença Online</h3>
           </header>
           <ul class="price__list">
-            <li class="price__item">Lading page</li>
-            <li class="price__item">Desing moderno e responsivo</li>
+            <li class="price__item"><span lang="en">Landing page</span></li>
+            <li class="price__item"><span lang="en">Design</span> moderno e responsivo</li>
             <li class="price__item">Botão direto para o WhatsApp</li>
             <li class="price__item">Entrega rápida</li>
           </ul>
@@ -204,34 +207,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ====================================================== -->
-  <!-- Quando criar os projetos descomente o código abaixo -->
-  <!-- ====================================================== -->
-
-  <!-- ===================== PROJETOS ===================== -->
-  <!-- <section class="projeto" id="projeto" aria-labelledby="pojeto-title">
-      <div class="container">
-        <h2 class="section-title" id="projetos-title">Projetos</h2>
-        <div class="portfolio__grid">
-          <figure class="portfolio__item card">
-            <div class="portfolio__thumb" role="img" aria-label="Projeto 1">
-              <div class="portfolio__mock"></div>
-            </div>
-          </figure>
-          <figure class="portfolio__item card">
-            <div class="portfolio__thumb" role="img" aria-label="Projeto 2">
-              <div class="portfolio__mock"></div>
-            </div>
-          </figure>
-          <figure class="portfolio__item card">
-            <div class="portfolio__thumb" role="img" aria-label="Projeto 3">
-              <div class="portfolio__mock"></div>
-            </div>
-          </figure>
-        </div>
-      </div>
-    </section> -->
 
   <!-- ===================== ABOUT & CONTACT ===================== -->
   <section class="about-contact" id="sobre" aria-labelledby="about-title">
@@ -283,42 +258,40 @@
           <button id="formAlertClose" class="form-alert__close">&times;</button>
         </div>
       </aside>
-
-
-      <!-- novo código a testar -->
     </div>
   </section>
 
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
     <div class="container footer__container">
+      <!-- Redes Sociais no topo -->
+      <div class="footer__social">
+        <a href="https://www.facebook.com/hhudson.oliveira" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/hhudson.oliveira" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/hudson-oliveira-santos" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
+
+      <!-- Copyright embaixo -->
       <p class="footer__copy">© 2025 Hodevweb possui todos os seus direitos reservados</p>
     </div>
   </footer>
 
-  <!-- Rodapé -->
-  <footer>
-    <div class="social-icons">
-      <a href="https://www.instagram.com/hhudson.oliveira" target="_blank" aria-label="Instagram">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="https://www.facebook.com/hhudson.oliveira" target="_blank" aria-label="Facebook">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="https://www.linkedin.com/in/hudson-oliveira-santos" target="_blank" aria-label="LinkedIn">
-        <i class="fab fa-linkedin-in"></i>
-      </a>
-    </div>
-  </footer>
-
   <script src="./script/index.js" defer></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function () {
-      emailjs.init({
-        publicKey: "K2JLEx06aJ9iVaPlK"
-      });
-    })();
+  <!-- EmailJS loaded dynamically only when needed (lazy loading) -->
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    // Initialize Lucide icons after page load
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
   </script>
 
 </body>

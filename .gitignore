@@ -1,0 +1,131 @@
+# ============================================================================
+# .gitignore for hodevweb
+# ============================================================================
+
+# ============================
+# Environment Variables (CRITICAL - NEVER COMMIT)
+# ============================
+.env
+.env.local
+.env.*.local
+*.env
+
+# ============================
+# Dependencies
+# ============================
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ============================
+# Build Output
+# ============================
+dist/
+build/
+*.bundle.js
+*.bundle.css
+web/dist/
+backend/dist/
+
+# ============================
+# Logs
+# ============================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# ============================
+# Operating System
+# ============================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ============================
+# IDE / Editors
+# ============================
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains (WebStorm, IntelliJ, etc)
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# ============================
+# Testing
+# ============================
+coverage/
+.nyc_output/
+cypress/screenshots/
+cypress/videos/
+cypress/downloads/
+.cypress/
+
+# ============================
+# Temporary Files
+# ============================
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.cache
+.cache/
+
+# ============================
+# Production / Deployment
+# ============================
+*.pem
+*.key
+*.crt
+*.p12
+secrets/
+credentials/
+
+# ============================
+# Misc
+# ============================
+.eslintcache
+.stylelintcache
+*.seed
+*.pid
+*.pid.lock

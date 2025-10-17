@@ -1,12 +1,18 @@
-// =======================
-// Entities + Builder
-// =======================
+/*
+  ============================================================================
+  HODEVWEB - Contact Form Handler with Security Features
+  ============================================================================
+*/
+
+// ============================
+// Projects Modal - Entity & Builder Pattern
+// ============================
 
 class Project {
-  constructor(title, description, image, link) {
+  constructor(title, description, icon, link) {
     this.title = title;
     this.description = description;
-    this.image = image;
+    this.icon = icon; // Agora usa nome do ícone Lucide ao invés de imagem
     this.link = link;
   }
 }
@@ -15,7 +21,7 @@ class ProjectBuilder {
   constructor() {
     this.title = "";
     this.description = "";
-    this.image = "";
+    this.icon = "box"; // Ícone padrão
     this.link = "#";
   }
   setTitle(title) {
@@ -26,8 +32,8 @@ class ProjectBuilder {
     this.description = description;
     return this;
   }
-  setImage(image) {
-    this.image = image;
+  setIcon(icon) {
+    this.icon = icon;
     return this;
   }
   setLink(link) {
@@ -35,19 +41,25 @@ class ProjectBuilder {
     return this;
   }
   build() {
-    return new Project(this.title, this.description, this.image, this.link);
+    return new Project(this.title, this.description, this.icon, this.link);
   }
 }
 
-// =======================
-// Modal Controller
-// =======================
+// ============================
+// Projects Modal Controller
+// ============================
 
 class ProjectsModal {
   constructor(modalId, openBtnId, closeBtnId, projectsContainerId) {
     this.modal = document.getElementById(modalId);
     this.openBtn = document.getElementById(openBtnId);
     this.closeBtn = document.getElementById(closeBtnId);
+
+    if (!this.modal || !this.openBtn || !this.closeBtn) {
+      console.warn("Modal elements not found. Projects modal disabled.");
+      return;
+    }
+
     this.overlay = this.modal.querySelector(".modal__overlay");
     this.container = document.getElementById(projectsContainerId);
 
@@ -55,7 +67,12 @@ class ProjectsModal {
   }
 
   initEvents() {
-    this.openBtn.addEventListener("click", () => this.open());
+    if (!this.openBtn || !this.closeBtn) return;
+
+    this.openBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.open();
+    });
     this.closeBtn.addEventListener("click", () => this.close());
     this.overlay.addEventListener("click", () => this.close());
     document.addEventListener("keydown", (e) => {
@@ -72,62 +89,31 @@ class ProjectsModal {
   }
 
   renderProjects(projects) {
+    if (!this.container) return;
+
     this.container.innerHTML = "";
     projects.forEach((p) => {
       const card = document.createElement("div");
       card.className = "project-card";
       card.innerHTML = `
-        <img src="${p.image}" alt="${p.title}">
+        <div class="project-card__icon">
+          <i data-lucide="${p.icon}" style="width: 64px; height: 64px; color: #fff;"></i>
+        </div>
         <h3>${p.title}</h3>
         <p>${p.description}</p>
         <a href="${p.link}" target="_blank" rel="noopener noreferrer">Acessar</a>
       `;
       this.container.appendChild(card);
     });
+
+    // Re-initialize Lucide icons after rendering
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
   }
 }
 
-// =======================
-// Inicialização
-// =======================
-
-// ======================================================
-// Quando criar os projetos descomente o código abaixo
-// ======================================================
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   const projects = [
-//     new ProjectBuilder()
-//       .setTitle("Website Responsivo")
-//       .setDescription("Criação de site moderno e adaptável.")
-//       .setImage("./assets/projeto1.png")
-//       .setLink("https://meusite1.com")
-//       .build(),
-//     new ProjectBuilder()
-//       .setTitle("Landing Page")
-//       .setDescription("Página de alta conversão para captação de clientes.")
-//       .setImage("./assets/projeto2.png")
-//       .setLink("https://meusite2.com")
-//       .build(),
-//     new ProjectBuilder()
-//       .setTitle("Automação com n8n")
-//       .setDescription("Fluxos automatizados para otimizar processos.")
-//       .setImage("./assets/projeto3.png")
-//       .setLink("https://meusite3.com")
-//       .build(),
-//   ]
-
-//   const modal = new ProjectsModal(
-//     "projectsModal",
-//     "openProjectsBtn",
-//     "closeModalBtn",
-//     "projectsContainer"
-//   )
-
-//   modal.renderProjects(projects)
-// })
-
-/* 
+/*
   SECURITY NOTES (XSS & SQLi hardening – client side)
   ---------------------------------------------------
   - Field-specific sanitizers (SRP) with allowlists:
@@ -205,10 +191,6 @@ function sanitizeMessage(input) {
   return s.slice(0, 2000);
 }
 
-function sanitizeInput(input) {
-  return sanitizeMessage(input);
-}
-
 // ============================
 // Validators (SRP - one task each)
 // ============================
@@ -267,9 +249,6 @@ function clearFormFields(nameInput, emailInput, phoneInput, messageInput) {
   messageInput.value = "";
 }
 
-const alertCloseBtn = document.getElementById("formAlertClose");
-if (alertCloseBtn) alertCloseBtn.addEventListener("click", hideFormAlert);
-
 // ============================
 // Email Service (SRP: só envia email)
 // ============================
@@ -278,7 +257,11 @@ class EmailService {
     this.serviceId = serviceId;
     this.templateId = templateId;
     this.publicKey = publicKey;
-    emailjs.init(this.publicKey);
+
+    // Initialize EmailJS only if credentials are provided
+    if (this.publicKey) {
+      emailjs.init(this.publicKey);
+    }
   }
 
   async sendEmail({ name, email, phone, message }) {
@@ -298,7 +281,49 @@ class EmailService {
       );
       return { success: true, response };
     } catch (error) {
-      console.error("Erro ao enviar email:", error);
+      // Don't expose detailed error information to console in production
+      if (process.env.NODE_ENV === 'development') {
+        console.error("Erro ao enviar email:", error);
+      }
+      return { success: false, error };
+    }
+  }
+}
+
+// ============================
+// Alternative: API Backend Service (Recommended for production)
+// ============================
+class BackendEmailService {
+  constructor(apiBaseUrl) {
+    this.apiBaseUrl = apiBaseUrl || '/api';
+  }
+
+  async sendEmail({ name, email, phone, message }) {
+    try {
+      const response = await fetch(`${this.apiBaseUrl}/send-email`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          message,
+          timestamp: new Date().toISOString(),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return { success: true, data };
+    } catch (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error("Erro ao enviar email via backend:", error);
+      }
       return { success: false, error };
     }
   }
@@ -352,11 +377,29 @@ async function handleFormSubmit(event) {
 
   if (!isValid) return;
 
-  const emailService = new EmailService(
-    "service_yq8he0m",
-    "template_ciu2478",
-    "K2JLEx06aJ9iVaPlK"
-  );
+  // ============================
+  // SECURITY: Use environment variables
+  // ============================
+  // Option 1: Using EmailJS directly (NOT RECOMMENDED for production)
+  // Load these from environment variables or config file
+  const USE_BACKEND = true; // Set to true to use backend API (RECOMMENDED)
+
+  let emailService;
+
+  if (USE_BACKEND) {
+    // RECOMMENDED: Use backend API to hide credentials
+    emailService = new BackendEmailService(
+      process.env.API_BASE_URL || '/api'
+    );
+  } else {
+    // FALLBACK: Direct EmailJS (only for development/testing)
+    // TODO: Move these to environment variables
+    emailService = new EmailService(
+      process.env.EMAILJS_SERVICE_ID || "service_yq8he0m",
+      process.env.EMAILJS_TEMPLATE_ID || "template_ciu2478",
+      process.env.EMAILJS_PUBLIC_KEY || "K2JLEx06aJ9iVaPlK"
+    );
+  }
 
   const result = await emailService.sendEmail({
     name,
@@ -364,7 +407,11 @@ async function handleFormSubmit(event) {
     phone,
     message,
   });
-  console.log(result);
+
+  // Only log in development mode
+  if (process.env.NODE_ENV === 'development') {
+    console.log("Email send result:", result);
+  }
 
   if (result.success) {
     clearFormFields(nameInput, emailInput, phoneInput, messageInput);
@@ -378,6 +425,57 @@ async function handleFormSubmit(event) {
 }
 
 // ============================
-// Init
+// Init - Wrap event listeners in DOMContentLoaded for safety
 // ============================
-document.getElementById("send").addEventListener("click", handleFormSubmit);
+document.addEventListener("DOMContentLoaded", () => {
+  // Form submit handler
+  const sendButton = document.getElementById("send");
+  if (sendButton) {
+    sendButton.addEventListener("click", handleFormSubmit);
+  }
+
+  // Alert close button handler
+  const alertCloseBtn = document.getElementById("formAlertClose");
+  if (alertCloseBtn) {
+    alertCloseBtn.addEventListener("click", hideFormAlert);
+  }
+
+  // ============================
+  // Projects Modal Initialization
+  // ============================
+
+  // Criar projetos de exemplo com ícones Lucide
+  const projects = [
+    new ProjectBuilder()
+      .setTitle("Website Responsivo")
+      .setDescription("Criação de site moderno e adaptável para todos os dispositivos.")
+      .setIcon("monitor")
+      .setLink("https://exemplo.com/projeto1")
+      .build(),
+    new ProjectBuilder()
+      .setTitle("Landing Page de Conversão")
+      .setDescription("Página de alta conversão para captação de clientes e vendas.")
+      .setIcon("target")
+      .setLink("https://exemplo.com/projeto2")
+      .build(),
+    new ProjectBuilder()
+      .setTitle("Automação com n8n")
+      .setDescription("Fluxos automatizados para otimizar processos empresariais.")
+      .setIcon("workflow")
+      .setLink("https://exemplo.com/projeto3")
+      .build(),
+  ];
+
+  // Inicializar o modal de projetos
+  const modal = new ProjectsModal(
+    "projectsModal",
+    "openProjectsBtn",
+    "closeModalBtn",
+    "projectsContainer"
+  );
+
+  // Renderizar projetos no modal
+  if (modal.container) {
+    modal.renderProjects(projects);
+  }
+});

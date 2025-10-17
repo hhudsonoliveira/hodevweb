@@ -14,7 +14,7 @@ module.exports = (env, argv) => {
 
   return {
     // ---------------- Entry / Output ----------------
-    entry: path.resolve(__dirname, "src/script/index.js"),
+    entry: path.resolve(__dirname, "script/index.js"),
 
     output: {
       path: path.resolve(__dirname, "dist"),
@@ -86,7 +86,7 @@ module.exports = (env, argv) => {
       new CleanWebpackPlugin(),
 
       new HtmlWebpackPlugin({
-        template: path.resolve(__dirname, "src/index.html"),
+        template: path.resolve(__dirname, "index.html"),
         filename: "index.html",
         inject: "body",
       }),
