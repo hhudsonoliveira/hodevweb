@@ -888,7 +888,7 @@ body.page {
 
 /* Tooltip opcional */
 .whatsapp-button::after {
-  content: 'Fale conosco';
+  content: 'Meus contatos';
   position: absolute;
   right: 72px;
   background: rgba(0, 0, 0, 0.9);
