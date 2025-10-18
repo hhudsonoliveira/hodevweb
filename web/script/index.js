@@ -492,7 +492,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .setTitle("Caique Imobiliária")
       .setDescription("Site responsivo completo para imobiliária com design moderno e navegação intuitiva.")
       .setIcon("home")
-      .setLink("https://caiqueimoveis.com.br")
+      .setLink("https://hhudsonoliveira.github.io/caiquesnt-imobiliaria/")
       .build(),
     new ProjectBuilder()
       .setTitle("Barbearia Profissional")
