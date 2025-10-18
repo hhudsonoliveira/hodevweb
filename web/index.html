@@ -62,12 +62,14 @@
   <!-- Cor do tema mobile -->
   <meta name="theme-color" content="#0066cc">
 
+  <!-- Preconnect para otimização de performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="preconnect" href="https://unpkg.com" />
+
   <link rel="stylesheet" href="./style/index.css" />
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
 
@@ -129,7 +131,7 @@
       </div>
 
       <div class="hero__art" aria-hidden="true">
-        <img src="./assets/imagem do not 2.png" alt="Ilustração de laptop representando desenvolvimento web" width="500" height="400" loading="lazy" />
+        <img src="./assets/imagem do not 2.png" alt="Ilustração de laptop representando desenvolvimento web" width="500" height="400" />
       </div>
     </div>
   </section>
@@ -324,7 +326,7 @@
   <!-- EmailJS loaded dynamically only when needed (lazy loading) -->
 
   <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@latest" defer></script>
   <script>
     // Initialize Lucide icons after page load
     document.addEventListener('DOMContentLoaded', () => {
