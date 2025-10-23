@@ -382,7 +382,7 @@ async function handleFormSubmit(event) {
   // ============================
   // Option 1: Using EmailJS directly (NOT RECOMMENDED for production)
   // Load these from environment variables or config file
-  const USE_BACKEND = true; // Set to true to use backend API (RECOMMENDED)
+  const USE_BACKEND = false; // Set to true to use backend API (RECOMMENDED)
 
   let emailService;
 
