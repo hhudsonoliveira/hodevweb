@@ -456,9 +456,53 @@ function initMobileMenu() {
 }
 
 // ============================
+// EmailJS Dynamic Loader
+// ============================
+function loadEmailJS() {
+  return new Promise((resolve, reject) => {
+    // Check if EmailJS is already loaded
+    if (typeof emailjs !== 'undefined') {
+      console.log('EmailJS já está carregado');
+      resolve();
+      return;
+    }
+
+    console.log('Carregando EmailJS dinamicamente...');
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+    script.onload = () => {
+      console.log('EmailJS carregado com sucesso!');
+      resolve();
+    };
+    script.onerror = () => {
+      console.error('Erro ao carregar EmailJS via jsdelivr, tentando CDN alternativo...');
+      // Try alternative CDN
+      const altScript = document.createElement('script');
+      altScript.src = 'https://cdn.emailjs.com/dist/email.min.js';
+      altScript.onload = () => {
+        console.log('EmailJS carregado via CDN alternativo!');
+        resolve();
+      };
+      altScript.onerror = () => reject(new Error('Falha ao carregar EmailJS'));
+      document.head.appendChild(altScript);
+    };
+    document.head.appendChild(script);
+  });
+}
+
+// ============================
 // Init - Wrap event listeners in DOMContentLoaded for safety
 // ============================
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  // Load EmailJS first
+  try {
+    await loadEmailJS();
+  } catch (error) {
+    console.error('Erro crítico ao carregar EmailJS:', error);
+    showFormAlert('error', 'Erro ao carregar sistema de email. Recarregue a página.');
+    return;
+  }
+
   // Initialize mobile menu
   initMobileMenu();
 
