@@ -281,10 +281,8 @@ class EmailService {
       );
       return { success: true, response };
     } catch (error) {
-      // Don't expose detailed error information to console in production
-      if (process.env.NODE_ENV === 'development') {
-        console.error("Erro ao enviar email:", error);
-      }
+      // Log error for debugging
+      console.error("Erro ao enviar email:", error);
       return { success: false, error };
     }
   }
@@ -321,9 +319,7 @@ class BackendEmailService {
       const data = await response.json();
       return { success: true, data };
     } catch (error) {
-      if (process.env.NODE_ENV === 'development') {
-        console.error("Erro ao enviar email via backend:", error);
-      }
+      console.error("Erro ao enviar email via backend:", error);
       return { success: false, error };
     }
   }
@@ -388,16 +384,14 @@ async function handleFormSubmit(event) {
 
   if (USE_BACKEND) {
     // RECOMMENDED: Use backend API to hide credentials
-    emailService = new BackendEmailService(
-      process.env.API_BASE_URL || '/api'
-    );
+    emailService = new BackendEmailService('/api');
   } else {
     // FALLBACK: Direct EmailJS (only for development/testing)
-    // TODO: Move these to environment variables
+    // Using direct values since process.env doesn't work in browser
     emailService = new EmailService(
-      process.env.EMAILJS_SERVICE_ID || "service_yq8he0m",
-      process.env.EMAILJS_TEMPLATE_ID || "template_ciu2478",
-      process.env.EMAILJS_PUBLIC_KEY || "K2JLEx06aJ9iVaPlK"
+      "service_yq8he0m",
+      "template_ciu2478",
+      "K2JLEx06aJ9iVaPlK"
     );
   }
 
@@ -408,10 +402,8 @@ async function handleFormSubmit(event) {
     message,
   });
 
-  // Only log in development mode
-  if (process.env.NODE_ENV === 'development') {
-    console.log("Email send result:", result);
-  }
+  // Log result for debugging
+  console.log("Email send result:", result);
 
   if (result.success) {
     clearFormFields(nameInput, emailInput, phoneInput, messageInput);
