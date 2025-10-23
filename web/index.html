@@ -327,8 +327,8 @@
   <!-- EmailJS - DEVE ser carregado ANTES do index.js -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-  <!-- Script principal - carrega depois que EmailJS estiver pronto -->
-  <script src="./script/index.js" defer></script>
+  <!-- Script principal - carrega sequencialmente após EmailJS -->
+  <script src="./script/index.js"></script>
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
