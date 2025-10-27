@@ -432,10 +432,11 @@ async function sendEmailAfterTerms() {
     return;
   }
 
+  // IMPORTANT: Get data BEFORE closing modal (closeTermsModal clears formDataTemp)
+  const { name, email, phone, message, inputs } = formDataTemp;
+
   // Close terms modal
   closeTermsModal();
-
-  const { name, email, phone, message, inputs } = formDataTemp;
 
   // ============================
   // SECURITY: Use environment variables
