@@ -326,7 +326,12 @@ class BackendEmailService {
 }
 
 // ============================
-// Form Handler (SRP: valida + chama serviços)
+// Global variable to store form data temporarily
+// ============================
+let formDataTemp = null;
+
+// ============================
+// Form Handler (SRP: valida + abre modal de termos)
 // ============================
 async function handleFormSubmit(event) {
   event.preventDefault();
@@ -373,11 +378,68 @@ async function handleFormSubmit(event) {
 
   if (!isValid) return;
 
+  // Store validated data temporarily
+  formDataTemp = {
+    name,
+    email,
+    phone,
+    message,
+    inputs: { nameInput, emailInput, phoneInput, messageInput }
+  };
+
+  // Open terms modal instead of sending email directly
+  openTermsModal();
+}
+
+// ============================
+// Terms Modal Functions
+// ============================
+function openTermsModal() {
+  const termsModal = document.getElementById("termsModal");
+  const termsCheckbox = document.getElementById("termsCheckbox");
+  const confirmBtn = document.getElementById("confirmTermsBtn");
+
+  if (!termsModal) {
+    console.error("Modal de termos não encontrado");
+    return;
+  }
+
+  // Reset checkbox and button state
+  if (termsCheckbox) termsCheckbox.checked = false;
+  if (confirmBtn) confirmBtn.disabled = true;
+
+  // Show modal
+  termsModal.classList.add("is-active");
+}
+
+function closeTermsModal() {
+  const termsModal = document.getElementById("termsModal");
+  if (termsModal) {
+    termsModal.classList.remove("is-active");
+  }
+  // Clear temporary data
+  formDataTemp = null;
+}
+
+// ============================
+// Send Email After Terms Acceptance
+// ============================
+async function sendEmailAfterTerms() {
+  if (!formDataTemp) {
+    console.error("Dados do formulário não encontrados");
+    showFormAlert("error", "Erro ao processar formulário. Tente novamente.");
+    closeTermsModal();
+    return;
+  }
+
+  // Close terms modal
+  closeTermsModal();
+
+  const { name, email, phone, message, inputs } = formDataTemp;
+
   // ============================
   // SECURITY: Use environment variables
   // ============================
-  // Option 1: Using EmailJS directly (NOT RECOMMENDED for production)
-  // Load these from environment variables or config file
   const USE_BACKEND = false; // Set to true to use backend API (RECOMMENDED)
 
   let emailService;
@@ -406,7 +468,12 @@ async function handleFormSubmit(event) {
   console.log("Email send result:", result);
 
   if (result.success) {
-    clearFormFields(nameInput, emailInput, phoneInput, messageInput);
+    clearFormFields(
+      inputs.nameInput,
+      inputs.emailInput,
+      inputs.phoneInput,
+      inputs.messageInput
+    );
     showFormAlert("success", "Formulário enviado com sucesso!");
   } else {
     showFormAlert(
@@ -414,6 +481,9 @@ async function handleFormSubmit(event) {
       "Falha ao enviar mensagem. Tente novamente mais tarde."
     );
   }
+
+  // Clear temporary data
+  formDataTemp = null;
 }
 
 // ============================
@@ -516,6 +586,44 @@ document.addEventListener("DOMContentLoaded", async () => {
   const alertCloseBtn = document.getElementById("formAlertClose");
   if (alertCloseBtn) {
     alertCloseBtn.addEventListener("click", hideFormAlert);
+  }
+
+  // ============================
+  // Terms Modal Event Listeners
+  // ============================
+  const termsModal = document.getElementById("termsModal");
+  const closeTermsBtn = document.getElementById("closeTermsBtn");
+  const termsOverlay = termsModal?.querySelector(".modal__overlay");
+  const termsCheckbox = document.getElementById("termsCheckbox");
+  const confirmTermsBtn = document.getElementById("confirmTermsBtn");
+
+  // Close button
+  if (closeTermsBtn) {
+    closeTermsBtn.addEventListener("click", closeTermsModal);
+  }
+
+  // Overlay click to close
+  if (termsOverlay) {
+    termsOverlay.addEventListener("click", closeTermsModal);
+  }
+
+  // ESC key to close
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && termsModal?.classList.contains("is-active")) {
+      closeTermsModal();
+    }
+  });
+
+  // Checkbox to enable/disable confirm button
+  if (termsCheckbox && confirmTermsBtn) {
+    termsCheckbox.addEventListener("change", () => {
+      confirmTermsBtn.disabled = !termsCheckbox.checked;
+    });
+  }
+
+  // Confirm button to send email
+  if (confirmTermsBtn) {
+    confirmTermsBtn.addEventListener("click", sendEmailAfterTerms);
   }
 
   // ============================

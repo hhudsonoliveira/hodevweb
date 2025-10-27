@@ -328,6 +328,80 @@
     </div>
   </footer>
 
+  <!-- Modal de Termos de Uso -->
+  <div id="termsModal" class="modal">
+    <div class="modal__overlay"></div>
+    <div class="modal__content modal__content--terms">
+      <button class="modal__close" id="closeTermsBtn" aria-label="Fechar modal de termos">&times;</button>
+      <h2 class="modal__title">Termos de Uso e Política de Privacidade</h2>
+
+      <div class="terms__content">
+        <section class="terms__section">
+          <h3>1. Coleta de Dados</h3>
+          <p>Ao preencher o formulário de contato, coletamos as seguintes informações:</p>
+          <ul>
+            <li>Nome completo</li>
+            <li>Endereço de e-mail</li>
+            <li>Número de telefone</li>
+            <li>Mensagem enviada</li>
+          </ul>
+          <p>Estes dados são coletados exclusivamente para fins de comunicação e resposta à sua solicitação.</p>
+        </section>
+
+        <section class="terms__section">
+          <h3>2. Uso das Informações</h3>
+          <p>As informações fornecidas serão utilizadas para:</p>
+          <ul>
+            <li>Responder à sua solicitação de contato</li>
+            <li>Fornecer informações sobre nossos serviços</li>
+            <li>Enviar propostas comerciais, quando solicitado</li>
+            <li>Manter histórico de comunicação para melhor atendimento</li>
+          </ul>
+          <p><strong>Importante:</strong> Seus dados NÃO serão compartilhados com terceiros sem seu consentimento explícito.</p>
+        </section>
+
+        <section class="terms__section">
+          <h3>3. Segurança dos Dados</h3>
+          <p>A HoDevWeb se compromete a proteger suas informações pessoais. Implementamos medidas de segurança técnicas e organizacionais para proteger seus dados contra acesso não autorizado, perda ou alteração.</p>
+          <p>Utilizamos serviços de terceiros confiáveis (EmailJS) para processar o envio de mensagens, que também seguem padrões de segurança reconhecidos.</p>
+        </section>
+
+        <section class="terms__section">
+          <h3>4. Direitos do Usuário</h3>
+          <p>De acordo com a LGPD (Lei Geral de Proteção de Dados), você tem direito a:</p>
+          <ul>
+            <li>Solicitar acesso aos seus dados pessoais</li>
+            <li>Solicitar correção de dados incompletos ou desatualizados</li>
+            <li>Solicitar exclusão dos seus dados</li>
+            <li>Revogar seu consentimento a qualquer momento</li>
+          </ul>
+          <p>Para exercer esses direitos, entre em contato conosco através do e-mail: <strong>contato@hodevweb.com</strong></p>
+        </section>
+
+        <section class="terms__section">
+          <h3>5. Consentimento</h3>
+          <p>Ao marcar a caixa abaixo e enviar o formulário, você declara que:</p>
+          <ul>
+            <li>Leu e compreendeu estes termos</li>
+            <li>Concorda com a coleta e uso das suas informações conforme descrito</li>
+            <li>Está ciente dos seus direitos em relação aos seus dados pessoais</li>
+            <li>Autoriza o contato da HoDevWeb para responder à sua solicitação</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="terms__actions">
+        <label class="terms__checkbox-label">
+          <input type="checkbox" id="termsCheckbox" class="terms__checkbox">
+          <span>Li e concordo com os Termos de Uso e Política de Privacidade</span>
+        </label>
+        <button id="confirmTermsBtn" class="button button--pill button--purple" disabled>
+          Confirmar e Enviar
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- EmailJS - Carregamento síncrono -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
