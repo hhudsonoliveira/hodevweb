@@ -1,0 +1,220 @@
+/* ============================================
+   MODAL DE TERMOS DE USO - JAVASCRIPT
+   Adicione este código ao seu arquivo JS
+   ============================================ */
+
+// ============================
+// Global variable to store form data temporarily
+// ============================
+let formDataTemp = null;
+
+// ============================
+// Terms Modal Functions
+// ============================
+
+/**
+ * Abre o modal de termos
+ * Reseta checkbox e desabilita botão confirmar
+ */
+function openTermsModal() {
+  const termsModal = document.getElementById("termsModal");
+  const termsCheckbox = document.getElementById("termsCheckbox");
+  const confirmBtn = document.getElementById("confirmTermsBtn");
+
+  if (!termsModal) {
+    console.error("Modal de termos não encontrado");
+    return;
+  }
+
+  // Reset checkbox and button state
+  if (termsCheckbox) termsCheckbox.checked = false;
+  if (confirmBtn) confirmBtn.disabled = true;
+
+  // Show modal
+  termsModal.classList.add("is-active");
+}
+
+/**
+ * Fecha o modal de termos
+ * Limpa dados temporários
+ */
+function closeTermsModal() {
+  const termsModal = document.getElementById("termsModal");
+  if (termsModal) {
+    termsModal.classList.remove("is-active");
+  }
+  // Clear temporary data
+  formDataTemp = null;
+}
+
+/**
+ * Envia email após aceite dos termos
+ * IMPORTANTE: Adapte esta função para sua lógica de envio de email
+ */
+async function sendEmailAfterTerms() {
+  if (!formDataTemp) {
+    console.error("Dados do formulário não encontrados");
+    alert("Erro ao processar formulário. Tente novamente.");
+    closeTermsModal();
+    return;
+  }
+
+  // IMPORTANT: Get data BEFORE closing modal (closeTermsModal clears formDataTemp)
+  const { name, email, phone, message, inputs } = formDataTemp;
+
+  // Close terms modal
+  closeTermsModal();
+
+  // ============================
+  // ADAPTE ESTA PARTE PARA SUA LÓGICA DE ENVIO
+  // ============================
+  try {
+    // Exemplo com fetch para API backend
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        phone,
+        message
+      })
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      // Limpar formulário
+      if (inputs) {
+        inputs.nameInput.value = '';
+        inputs.emailInput.value = '';
+        inputs.phoneInput.value = '';
+        inputs.messageInput.value = '';
+      }
+
+      // Mostrar mensagem de sucesso
+      alert("Formulário enviado com sucesso!");
+      console.log("Email enviado com sucesso:", result);
+    } else {
+      // Mostrar mensagem de erro
+      alert("Falha ao enviar mensagem. Tente novamente mais tarde.");
+      console.error("Erro ao enviar email:", result);
+    }
+  } catch (error) {
+    console.error("Erro ao enviar email:", error);
+    alert("Falha ao enviar mensagem. Tente novamente mais tarde.");
+  }
+
+  // Clear temporary data
+  formDataTemp = null;
+}
+
+// ============================
+// Form Submit Handler - EXEMPLO
+// Adapte para sua validação de formulário
+// ============================
+function handleFormSubmit(event) {
+  event.preventDefault();
+
+  // Pegue os valores do formulário
+  const nameInput = document.getElementById("nome");
+  const emailInput = document.getElementById("email");
+  const phoneInput = document.getElementById("tel");
+  const messageInput = document.getElementById("msg");
+
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  const phone = phoneInput.value.trim();
+  const message = messageInput.value.trim();
+
+  // Validação básica (adapte conforme necessário)
+  let isValid = true;
+
+  if (!name) {
+    alert("O nome é obrigatório.");
+    isValid = false;
+  }
+
+  if (!email || !email.includes('@')) {
+    alert("Formato de e-mail inválido.");
+    isValid = false;
+  }
+
+  if (!phone) {
+    alert("O telefone é obrigatório.");
+    isValid = false;
+  }
+
+  if (!message || message.length < 5) {
+    alert("A mensagem deve ter pelo menos 5 caracteres.");
+    isValid = false;
+  }
+
+  if (!isValid) return;
+
+  // Armazena dados validados temporariamente
+  formDataTemp = {
+    name,
+    email,
+    phone,
+    message,
+    inputs: { nameInput, emailInput, phoneInput, messageInput }
+  };
+
+  // Abre modal de termos ao invés de enviar direto
+  openTermsModal();
+}
+
+// ============================
+// Event Listeners - Inicialização
+// Adicione dentro do DOMContentLoaded
+// ============================
+document.addEventListener("DOMContentLoaded", () => {
+  // ============================
+  // Form submit handler
+  // ============================
+  const sendButton = document.getElementById("send");
+  if (sendButton) {
+    sendButton.addEventListener("click", handleFormSubmit);
+  }
+
+  // ============================
+  // Terms Modal Event Listeners
+  // ============================
+  const termsModal = document.getElementById("termsModal");
+  const closeTermsBtn = document.getElementById("closeTermsBtn");
+  const termsOverlay = termsModal?.querySelector(".modal__overlay");
+  const termsCheckbox = document.getElementById("termsCheckbox");
+  const confirmTermsBtn = document.getElementById("confirmTermsBtn");
+
+  // Botão fechar
+  if (closeTermsBtn) {
+    closeTermsBtn.addEventListener("click", closeTermsModal);
+  }
+
+  // Click no overlay para fechar
+  if (termsOverlay) {
+    termsOverlay.addEventListener("click", closeTermsModal);
+  }
+
+  // Tecla ESC para fechar
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && termsModal?.classList.contains("is-active")) {
+      closeTermsModal();
+    }
+  });
+
+  // Checkbox habilita/desabilita botão confirmar
+  if (termsCheckbox && confirmTermsBtn) {
+    termsCheckbox.addEventListener("change", () => {
+      confirmTermsBtn.disabled = !termsCheckbox.checked;
+    });
+  }
+
+  // Botão confirmar envia email
+  if (confirmTermsBtn) {
+    confirmTermsBtn.addEventListener("click", sendEmailAfterTerms);
+  }
+});
