@@ -17,6 +17,9 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="alternate icon" href="/favicon.ico">
 
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+
   <!-- Meta Tags Básicas -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,6 +71,13 @@
   <!-- Cor do tema mobile -->
   <meta name="theme-color" content="#0066cc">
 
+  <!-- DNS Prefetch & Preconnect para recursos externos -->
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="./style/index.css" />
@@ -196,11 +206,11 @@
   </header>
 
   <!-- Modal de Projetos -->
-  <div id="projectsModal" class="modal">
+  <div id="projectsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="projectsModalTitle">
     <div class="modal__overlay"></div>
     <div class="modal__content">
-      <button class="modal__close" id="closeModalBtn">&times;</button>
-      <h2 class="modal__title">Meus Projetos</h2>
+      <button class="modal__close" id="closeModalBtn" aria-label="Fechar modal de projetos">&times;</button>
+      <h2 class="modal__title" id="projectsModalTitle">Meus Projetos</h2>
       <div id="projectsContainer" class="projects__grid"></div>
     </div>
   </div>
@@ -218,7 +228,7 @@
       </div>
 
       <div class="hero__art" aria-hidden="true">
-        <img src="./assets/imagem do not 2.png" alt="Workspace profissional com código - Desenvolvimento web HodevWeb" width="500" height="400" loading="lazy" />
+        <img src="./assets/imagem do not 2.png" alt="Workspace profissional com código - Desenvolvimento web HodevWeb" width="500" height="400" fetchpriority="high" />
       </div>
     </div>
   </section>
@@ -242,6 +252,7 @@
   <!-- ===================== FEATURES ===================== -->
   <section class="features" id="servicos" aria-labelledby="features-title">
     <div class="container">
+      <h2 id="features-title" class="section-title" style="text-align: center; margin-bottom: 40px;">Nossos Serviços</h2>
       <div class="features__flex">
         <article class="card feature">
           <div class="feature__icon" aria-hidden="true">
@@ -276,8 +287,7 @@
         </article>
         <article class="card feature">
           <div class="feature__icon" aria-hidden="true">
-            <svg class="feature__glyph" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"
-              aria-hidden="true" role="img">
+            <svg class="feature__glyph" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
               <!-- Pin (mapa) sólido em #bcd4ff -->
               <path fill="#bcd4ff" fill-rule="evenodd" clip-rule="evenodd"
                 d="M12 2C7.58 2 4 5.58 4 10c0 5.25 4.5 8.5 8 12 3.5-3.5 8-6.75 8-12 0-4.42-3.58-8-8-8Zm0 4.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7Z" />
@@ -309,7 +319,7 @@
             <li class="price__item">Entrega rápida</li>
           </ul>
           <a class="button button--pill button--green price__cta" href="https://linktr.ee/hhudsonoliveira"
-            target="_blank">Saiba Mais</a>
+            target="_blank" rel="noopener noreferrer" aria-label="Saiba mais sobre o pacote Básico">Saiba Mais</a>
         </article>
 
         <article class="card price price--highlight">
@@ -323,7 +333,7 @@
             <li class="price__item">Seo do Google</li>
           </ul>
           <a class="button button--pill button--teal price__cta" href="https://linktr.ee/hhudsonoliveira"
-            target="_blank">Saiba Mais</a>
+            target="_blank" rel="noopener noreferrer" aria-label="Saiba mais sobre o pacote Intermediário">Saiba Mais</a>
         </article>
 
         <article class="card price price--muted">
@@ -337,7 +347,7 @@
             <li class="price__item">Automações com n8n</li>
           </ul>
           <a class="button button--pill button--teal price__cta" href="https://linktr.ee/hhudsonoliveira"
-            target="_blank">Saiba Mais</a>
+            target="_blank" rel="noopener noreferrer" aria-label="Saiba mais sobre o pacote Premium">Saiba Mais</a>
         </article>
       </div>
     </div>
@@ -364,33 +374,33 @@
       <!-- novo código a testar -->
       <aside class="contact" id="contato">
         <h2 class="section-title">Contato</h2>
-        <form class="form">
+        <form class="form" aria-describedby="formAlert">
           <div class="form__row">
             <label class="form__label" for="nome">Nome</label>
-            <input class="form__control" id="nome" name="nome" type="text" placeholder="Nome" />
+            <input class="form__control" id="nome" name="nome" type="text" placeholder="Nome" required aria-required="true" />
           </div>
           <div class="form__row">
             <label class="form__label" for="email">Email</label>
-            <input class="form__control" id="email" name="email" type="email" placeholder="Email" />
+            <input class="form__control" id="email" name="email" type="email" placeholder="Email" required aria-required="true" />
           </div>
           <div class="form__row">
             <label class="form__label" for="tel">Telefone</label>
-            <input class="form__control" id="tel" name="tel" type="tel" placeholder="Telefone" />
+            <input class="form__control" id="tel" name="tel" type="tel" placeholder="Telefone" required aria-required="true" />
           </div>
           <div class="form__row">
             <label class="form__label" for="msg">Mensagem</label>
             <textarea class="form__control form__control--textarea" id="msg" name="mensagem"
-              placeholder="Mensagem"></textarea>
+              placeholder="Mensagem" required aria-required="true"></textarea>
           </div>
-          <button class="button button--pill button--purple form__submit" id="send">
+          <button class="button button--pill button--purple form__submit" id="send" type="submit">
             Enviar
           </button>
         </form>
 
         <!-- ALERTA ESPECIALIZADO -->
-        <div id="formAlert" class="form-alert hidden">
+        <div id="formAlert" class="form-alert hidden" role="alert" aria-live="polite">
           <span id="formAlertMessage"></span>
-          <button id="formAlertClose" class="form-alert__close">&times;</button>
+          <button id="formAlertClose" class="form-alert__close" aria-label="Fechar alerta">&times;</button>
         </div>
       </aside>
     </div>
@@ -460,8 +470,8 @@
       <div class="depoimento-principal">
 
         <div class="depoimento-conteudo">
-          <div class="aspas-grande">"</div>
-          <div class="estrelas-destaque">⭐⭐⭐⭐⭐</div>
+          <div class="aspas-grande" aria-hidden="true">"</div>
+          <div class="estrelas-destaque" aria-label="Avaliação: 5 de 5 estrelas">⭐⭐⭐⭐⭐</div>
 
           <p class="texto-depoimento">
             A HodevWeb transformou completamente nossa presença digital. Site moderno,
@@ -482,7 +492,7 @@
 
         <!-- Badge/Selo -->
         <div class="badge-verificado">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <span>Cliente Verificado</span>
@@ -536,11 +546,11 @@
   </footer>
 
   <!-- Modal de Termos de Uso -->
-  <div id="termsModal" class="modal">
+  <div id="termsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="termsModalTitle">
     <div class="modal__overlay"></div>
     <div class="modal__content modal__content--terms">
       <button class="modal__close" id="closeTermsBtn" aria-label="Fechar modal de termos">&times;</button>
-      <h2 class="modal__title">Termos de Uso e Política de Privacidade</h2>
+      <h2 class="modal__title" id="termsModalTitle">Termos de Uso e Política de Privacidade</h2>
 
       <div class="terms__content">
         <section class="terms__section">
@@ -621,11 +631,11 @@
   </script>
 
   <!-- Script principal -->
-  <script src="./script/index.js"></script>
+  <script src="./script/index.js" defer></script>
 
   <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script>
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  <script defer>
     // Initialize Lucide icons after page load
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
