@@ -1,0 +1,232 @@
+/* =====================================================
+   STYLES SEO - HodevWeb
+   Estilos para seções de localização e otimização SEO
+   ===================================================== */
+
+/* ===================== SEÇÃO LOCALIZAÇÃO ===================== */
+.localizacao {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+}
+
+.localizacao h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.localizacao .destaque {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.localizacao p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.95;
+}
+
+/* ===================== CIDADES ATENDIDAS ===================== */
+.cidades-atendidas {
+  padding: 80px 20px;
+  background: #f8f9fa;
+}
+
+.cidades-atendidas h3 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  color: #2d3748;
+  font-weight: 700;
+}
+
+.subtitulo {
+  text-align: center;
+  color: #718096;
+  font-size: 1.1rem;
+  margin-bottom: 50px;
+}
+
+.grid-cidades {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cidade-item {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cidade-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.cidade-item .icone {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.cidade-item h4 {
+  font-size: 1.4rem;
+  color: #2d3748;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.cidade-item p {
+  color: #718096;
+  font-size: 0.95rem;
+}
+
+/* ===================== FOOTER ATUALIZADO ===================== */
+.footer {
+  background: #2d3748;
+  color: white;
+  padding: 60px 20px 30px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+}
+
+.footer-col h4 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #667eea;
+  font-weight: 600;
+}
+
+.footer-col p {
+  line-height: 1.8;
+  color: #cbd5e0;
+  margin-bottom: 10px;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 10px;
+  color: #cbd5e0;
+  line-height: 1.8;
+}
+
+.footer__social {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 50%;
+  color: #667eea;
+  transition: all 0.3s ease;
+}
+
+.footer__social-link:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid #4a5568;
+}
+
+.footer-bottom p {
+  color: #a0aec0;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* ===================== RESPONSIVIDADE ===================== */
+@media (max-width: 768px) {
+  .localizacao h2 {
+    font-size: 1.8rem;
+  }
+
+  .localizacao .destaque {
+    font-size: 1.1rem;
+  }
+
+  .localizacao p {
+    font-size: 1rem;
+  }
+
+  .cidades-atendidas {
+    padding: 60px 20px;
+  }
+
+  .cidades-atendidas h3 {
+    font-size: 1.8rem;
+  }
+
+  .grid-cidades {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .footer {
+    padding: 40px 20px 20px;
+  }
+
+  .footer-grid {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .localizacao {
+    padding: 60px 15px;
+  }
+
+  .localizacao h2 {
+    font-size: 1.5rem;
+  }
+
+  .localizacao .destaque {
+    font-size: 1rem;
+  }
+
+  .cidades-atendidas h3 {
+    font-size: 1.5rem;
+  }
+
+  .cidade-item {
+    padding: 20px;
+  }
+}
