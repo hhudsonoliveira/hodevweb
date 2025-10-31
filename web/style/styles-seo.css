@@ -125,6 +125,29 @@
   margin-bottom: 10px;
 }
 
+/* Links dentro do footer (telefone e email) */
+.footer-col a,
+.footer-col a:link,
+.footer-col a:visited,
+.footer-col a:active,
+.footer-col p a {
+  color: #ffffff !important;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-col a:hover {
+  color: #FFD700;
+  text-decoration: underline;
+}
+
+/* Especificamente para links de telefone */
+.footer-col a[href^="tel"],
+footer a[href^="tel"] {
+  color: #ffffff !important;
+  text-decoration: none;
+}
+
 .footer-col ul {
   list-style: none;
   padding: 0;
@@ -207,6 +230,15 @@
   .footer-grid {
     gap: 30px;
   }
+
+  /* Garantir que links de telefone fiquem brancos no mobile */
+  .footer-col a,
+  .footer-col a[href^="tel"],
+  footer a[href^="tel"],
+  .footer-col p a {
+    color: #ffffff !important;
+    text-decoration: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -228,5 +260,16 @@
 
   .cidade-item {
     padding: 20px;
+  }
+
+  /* Garantir links brancos no footer em telas pequenas */
+  .footer-col a,
+  .footer-col a[href^="tel"],
+  .footer-col a[href^="mailto"],
+  footer a[href^="tel"],
+  .footer-col p a {
+    color: #ffffff !important;
+    text-decoration: none;
+    font-weight: 400;
   }
 }
