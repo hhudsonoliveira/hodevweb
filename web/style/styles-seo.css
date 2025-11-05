@@ -6,8 +6,8 @@
 /* ===================== SEÇÃO LOCALIZAÇÃO ===================== */
 .localizacao {
   padding: 80px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--gradient-card);
+  color: var(--neutral-white);
   text-align: center;
 }
 
@@ -39,20 +39,20 @@
 /* ===================== CIDADES ATENDIDAS ===================== */
 .cidades-atendidas {
   padding: 80px 20px;
-  background: #f8f9fa;
+  background: var(--neutral-white);
 }
 
 .cidades-atendidas h3 {
   text-align: center;
   font-size: 2.2rem;
   margin-bottom: 15px;
-  color: #2d3748;
+  color: var(--neutral-dark);
   font-weight: 700;
 }
 
 .subtitulo {
   text-align: center;
-  color: #718096;
+  color: var(--neutral-medium);
   font-size: 1.1rem;
   margin-bottom: 50px;
 }
@@ -66,17 +66,19 @@
 }
 
 .cidade-item {
-  background: white;
+  background: var(--neutral-white);
   padding: 30px;
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  border: 1px solid var(--neutral-light);
 }
 
 .cidade-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--accent-primary);
 }
 
 .cidade-item .icone {
@@ -87,21 +89,22 @@
 
 .cidade-item h4 {
   font-size: 1.4rem;
-  color: #2d3748;
+  color: var(--neutral-dark);
   margin-bottom: 8px;
   font-weight: 600;
 }
 
 .cidade-item p {
-  color: #718096;
+  color: var(--neutral-medium);
   font-size: 0.95rem;
 }
 
 /* ===================== FOOTER ATUALIZADO ===================== */
 .footer {
-  background: #2d3748;
-  color: white;
+  background: var(--primary-dark);
+  color: var(--neutral-white);
   padding: 60px 20px 30px;
+  border-top: 2px solid var(--accent-primary);
 }
 
 .footer-grid {
@@ -115,13 +118,13 @@
 .footer-col h4 {
   font-size: 1.3rem;
   margin-bottom: 20px;
-  color: #667eea;
+  color: var(--accent-primary);
   font-weight: 600;
 }
 
 .footer-col p {
   line-height: 1.8;
-  color: #cbd5e0;
+  color: var(--neutral-light);
   margin-bottom: 10px;
 }
 
@@ -131,20 +134,20 @@
 .footer-col a:visited,
 .footer-col a:active,
 .footer-col p a {
-  color: #ffffff !important;
+  color: var(--neutral-white) !important;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .footer-col a:hover {
-  color: #FFD700;
+  color: var(--accent-primary);
   text-decoration: underline;
 }
 
 /* Especificamente para links de telefone */
 .footer-col a[href^="tel"],
 footer a[href^="tel"] {
-  color: #ffffff !important;
+  color: var(--neutral-white) !important;
   text-decoration: none;
 }
 
@@ -156,7 +159,7 @@ footer a[href^="tel"] {
 
 .footer-col ul li {
   margin-bottom: 10px;
-  color: #cbd5e0;
+  color: var(--neutral-light);
   line-height: 1.8;
 }
 
@@ -172,26 +175,28 @@ footer a[href^="tel"] {
   justify-content: center;
   width: 40px;
   height: 40px;
-  background: rgba(102, 126, 234, 0.1);
+  background: var(--primary-medium);
   border-radius: 50%;
-  color: #667eea;
+  color: var(--neutral-white);
   transition: all 0.3s ease;
+  border: 1px solid var(--primary-light);
 }
 
 .footer__social-link:hover {
-  background: #667eea;
-  color: white;
+  background: var(--accent-primary);
+  color: var(--neutral-white);
   transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
 }
 
 .footer-bottom {
   text-align: center;
   padding-top: 30px;
-  border-top: 1px solid #4a5568;
+  border-top: 1px solid var(--primary-light);
 }
 
 .footer-bottom p {
-  color: #a0aec0;
+  color: var(--neutral-medium);
   font-size: 0.9rem;
   margin: 0;
 }
@@ -236,7 +241,7 @@ footer a[href^="tel"] {
   .footer-col a[href^="tel"],
   footer a[href^="tel"],
   .footer-col p a {
-    color: #ffffff !important;
+    color: var(--neutral-white) !important;
     text-decoration: none;
   }
 }
@@ -268,7 +273,7 @@ footer a[href^="tel"] {
   .footer-col a[href^="mailto"],
   footer a[href^="tel"],
   .footer-col p a {
-    color: #ffffff !important;
+    color: var(--neutral-white) !important;
     text-decoration: none;
     font-weight: 400;
   }
