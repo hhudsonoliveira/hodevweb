@@ -337,8 +337,8 @@ body.page {
 }
 
 .card {
-  background: var(--primary-medium);
-  border: 1px solid var(--primary-light);
+  background: var(--primary-dark);
+  border: 1px solid var(--accent-primary);
   margin: 5px;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
@@ -356,16 +356,6 @@ body.page {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--accent-primary);
-}
-
-.feature::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--gradient-card);
-  opacity: 0.7;
-  pointer-events: none;
-  border-radius: inherit;
 }
 
 .feature__icon {
