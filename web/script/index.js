@@ -649,7 +649,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       .setTitle("JV Beleza e Estética")
       .setDescription("Landing page de alta conversão para clínica de estética, focada em captação de clientes.")
       .setIcon("sparkles")
-      .setLink("https://hhudsonoliveira.github.io/JV-beleza-e-est-tica/")
+      .setLink("https://jvsaudebelezaestetica.com")
       .build(),
   ];
 
