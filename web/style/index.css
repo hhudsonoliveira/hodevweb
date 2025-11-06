@@ -1264,11 +1264,6 @@ body.page {
     padding: 30px 0;
   }
 
-  /* Logo responsiva em mobile */
-  .logo {
-    width: 140px;
-  }
-
   /* Menu hambúrguer extra visível em telas pequenas */
   .nav__bar {
     background: var(--neutral-white) !important;
@@ -1292,9 +1287,8 @@ body.page {
 }
 
 .logo {
-  width: 180px;
+  width: 50px;
   height: auto;
-  max-width: 100%;
 }
 
 .title-image {
