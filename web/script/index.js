@@ -651,6 +651,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       .setIcon("sparkles")
       .setLink("https://jvsaudebelezaestetica.com")
       .build(),
+    new ProjectBuilder()
+      .setTitle("Essence Estética")
+      .setDescription("Site profissional para clínica de estética com tratamentos avançados e resultados naturais.")
+      .setIcon("star")
+      .setLink("https://hhudsonoliveira.github.io/essence-estetica/")
+      .build(),
   ];
 
   // Inicializar o modal de projetos
