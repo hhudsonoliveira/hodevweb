@@ -81,13 +81,21 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Preload critical resources -->
+  <link rel="preload" href="./style/index.css" as="style" />
+  <link rel="preload" href="./assets/Logo.png" as="image" />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" />
+
   <link rel="stylesheet" href="./style/index.css" />
   <link rel="stylesheet" href="./style/styles-seo.css" />
   <link rel="stylesheet" href="./style/depoimento.css" />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" /></noscript>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
 
   <!-- Schema Markup - LocalBusiness -->
   <script type="application/ld+json">
@@ -616,17 +624,6 @@
     </div>
   </div>
 
-  <!-- EmailJS - Carregamento síncrono -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-  <!-- Verificar se EmailJS carregou antes de carregar index.js -->
-  <script>
-    if (typeof emailjs === 'undefined') {
-      console.error('EmailJS não carregou! Tentando carregar novamente...');
-      document.write('<script src="https://cdn.emailjs.com/dist/email.min.js"><\/script>');
-    }
-  </script>
-
   <!-- Script principal -->
   <script src="./script/index.js" defer></script>
 
@@ -635,7 +632,9 @@
   <script defer>
     // Initialize Lucide icons after page load
     document.addEventListener('DOMContentLoaded', () => {
-      lucide.createIcons();
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
     });
   </script>
 
