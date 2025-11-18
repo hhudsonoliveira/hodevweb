@@ -8,6 +8,8 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
+const glob = require("glob-all");
 
 module.exports = (env, argv) => {
   const isProd = argv.mode === "production";
@@ -94,14 +96,66 @@ module.exports = (env, argv) => {
       new MiniCssExtractPlugin({
         filename: isProd ? "assets/css/[name].[contenthash].css" : "assets/css/[name].css",
       }),
+
+      // PurgeCSS - Remove CSS não usado (apenas em produção)
+      ...(isProd
+        ? [
+            new PurgeCSSPlugin({
+              paths: glob.sync([
+                path.join(__dirname, "index.html"),
+                path.join(__dirname, "script/**/*.js"),
+              ]),
+              safelist: {
+                standard: [
+                  /^is-/,
+                  /^has-/,
+                  /^modal/,
+                  /^nav/,
+                  /^form/,
+                  /^project/,
+                  /^button/,
+                  /^card/,
+                  /^price/,
+                  /^feature/,
+                  /^hero/,
+                  /^footer/,
+                  /^whatsapp/,
+                  /^terms/,
+                  /^lucide/,
+                  /^fa-/,
+                  /^fab/,
+                  /^fas/,
+                ],
+                deep: [/modal/, /project-card/],
+                greedy: [/^active$/, /^open$/],
+              },
+            }),
+          ]
+        : []),
     ],
 
     // ---------------- Optimization ----------------
     optimization: {
+      minimize: isProd,
       splitChunks: {
         chunks: "all",
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendors",
+            chunks: "all",
+            priority: 10,
+          },
+          common: {
+            minChunks: 2,
+            priority: 5,
+            reuseExistingChunk: true,
+          },
+        },
       },
       runtimeChunk: "single",
+      usedExports: true, // Tree shaking
+      sideEffects: false, // Remove código sem efeitos colaterais
     },
 
     // ---------------- Dev Server ----------------
