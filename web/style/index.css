@@ -770,8 +770,21 @@ body.page {
 }
 
 .about__lead {
-  color: var(--neutral-dark);
+  color: var(--neutral-white);
   margin: 0 0 14px;
+}
+
+.about-section {
+  background: var(--gradient-card);
+  padding: 60px 0;
+}
+
+.about-section .section-title {
+  color: var(--neutral-white);
+}
+
+.about__item {
+  color: var(--neutral-white);
 }
 
 .about__list {

@@ -36,67 +36,246 @@
   opacity: 0.95;
 }
 
-/* ===================== CIDADES ATENDIDAS ===================== */
-.cidades-atendidas {
+/* ===================== COMO TRABALHAMOS ===================== */
+.como-trabalhamos {
+  padding: 80px 20px;
+  background: var(--neutral-white);
+  color: var(--neutral-dark);
+}
+
+.section-title-center {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 60px;
+  font-weight: 700;
+  color: var(--neutral-dark);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.workflow-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.workflow-step {
+  background: var(--primary-dark);
+  border: 1px solid var(--accent-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 26px;
+  width: 16rem;
+  margin: 5px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.workflow-step:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.workflow-number {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 3rem;
+  font-weight: 900;
+  color: rgba(108, 92, 231, 0.1);
+  line-height: 1;
+  z-index: 0;
+}
+
+.workflow-icon {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid var(--accent-primary);
+  margin: 0 auto 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.workflow-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.workflow-step h3 {
+  font-size: 18px;
+  margin: 0 0 12px;
+  color: var(--neutral-white);
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+.workflow-step p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--neutral-medium);
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===================== AUTOMAÇÕES N8N ===================== */
+.automacoes-n8n {
   padding: 80px 20px;
   background: var(--neutral-white);
 }
 
-.cidades-atendidas h3 {
+.automacoes-header {
   text-align: center;
-  font-size: 2.2rem;
-  margin-bottom: 15px;
-  color: var(--neutral-dark);
-  font-weight: 700;
+  margin-bottom: 60px;
 }
 
-.subtitulo {
-  text-align: center;
+.automacoes-subtitle {
+  font-size: 1.2rem;
   color: var(--neutral-medium);
-  font-size: 1.1rem;
-  margin-bottom: 50px;
+  max-width: 800px;
+  margin: 20px auto 0;
+  line-height: 1.6;
 }
 
-.grid-cidades {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
+.automacoes-content {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.cidade-item {
+.automacoes-intro {
+  background: var(--gradient-card);
+  padding: 40px;
+  border-radius: 16px;
+  margin-bottom: 50px;
+  color: var(--neutral-white);
+}
+
+.automacoes-intro h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--neutral-white);
+}
+
+.automacoes-intro p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.automacoes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.automacao-card {
+  flex: 1 1 280px;
+  max-width: 400px;
   background: var(--neutral-white);
-  padding: 30px;
+  padding: 35px;
   border-radius: 12px;
-  text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--neutral-light);
   transition: all 0.3s ease;
-  border: 1px solid var(--neutral-light);
 }
 
-.cidade-item:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-hover);
-  border-color: var(--accent-primary);
+.automacao-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(108, 92, 231, 0.15);
+  border-color: #6c5ce7;
 }
 
-.cidade-item .icone {
-  font-size: 2.5rem;
-  display: block;
+.automacao-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+.automacao-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.automacao-card h4 {
+  font-size: 1.3rem;
   margin-bottom: 15px;
-}
-
-.cidade-item h4 {
-  font-size: 1.4rem;
   color: var(--neutral-dark);
-  margin-bottom: 8px;
   font-weight: 600;
 }
 
-.cidade-item p {
+.automacao-card p {
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--neutral-medium);
-  font-size: 0.95rem;
+}
+
+.automacoes-exemplos {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 40px;
+  border-radius: 16px;
+  margin-bottom: 40px;
+}
+
+.automacoes-exemplos h3 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  color: var(--neutral-dark);
+  font-weight: 700;
+}
+
+.exemplos-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.exemplos-list li {
+  padding: 20px;
+  margin-bottom: 15px;
+  background: var(--neutral-white);
+  border-radius: 8px;
+  border-left: 4px solid #6c5ce7;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--neutral-dark);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.exemplos-list li:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.exemplos-list li:last-child {
+  margin-bottom: 0;
+}
+
+.automacoes-cta {
+  text-align: center;
+  padding: 40px;
+  background: var(--gradient-card);
+  border-radius: 16px;
+}
+
+.cta-text {
+  font-size: 1.3rem;
+  color: var(--neutral-white);
+  margin-bottom: 25px;
+  font-weight: 600;
 }
 
 /* ===================== FOOTER ATUALIZADO ===================== */
@@ -215,17 +394,45 @@ footer a[href^="tel"] {
     font-size: 1rem;
   }
 
-  .cidades-atendidas {
+  .como-trabalhamos {
     padding: 60px 20px;
   }
 
-  .cidades-atendidas h3 {
+  .section-title-center {
     font-size: 1.8rem;
+    margin-bottom: 40px;
   }
 
-  .grid-cidades {
-    grid-template-columns: 1fr;
+  .workflow-grid {
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
+  }
+
+  .workflow-step {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .workflow-number {
+    font-size: 2.5rem;
+  }
+
+  .automacoes-n8n {
+    padding: 60px 20px;
+  }
+
+  .automacoes-intro {
+    padding: 30px;
+  }
+
+  .automacoes-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .automacoes-exemplos {
+    padding: 30px;
   }
 
   .footer {
@@ -259,12 +466,69 @@ footer a[href^="tel"] {
     font-size: 1rem;
   }
 
-  .cidades-atendidas h3 {
+  .como-trabalhamos {
+    padding: 50px 15px;
+  }
+
+  .section-title-center {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+
+  .workflow-step {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .workflow-number {
+    font-size: 2rem;
+  }
+
+  .workflow-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .workflow-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .workflow-step h3 {
+    font-size: 16px;
+  }
+
+  .automacoes-n8n {
+    padding: 50px 15px;
+  }
+
+  .automacoes-intro {
+    padding: 25px;
+  }
+
+  .automacoes-intro h3 {
+    font-size: 1.6rem;
+  }
+
+  .automacoes-exemplos {
+    padding: 25px;
+  }
+
+  .automacoes-exemplos h3 {
     font-size: 1.5rem;
   }
 
-  .cidade-item {
-    padding: 20px;
+  .exemplos-list li {
+    padding: 15px;
+    font-size: 0.95rem;
+  }
+
+  .automacoes-cta {
+    padding: 30px 20px;
+  }
+
+  .cta-text {
+    font-size: 1.1rem;
   }
 
   /* Garantir links brancos no footer em telas pequenas */
