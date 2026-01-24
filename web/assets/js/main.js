@@ -419,3 +419,151 @@ preloadCriticalResources();
 console.log('%c HoDevWeb ', 'background: linear-gradient(135deg, #0066FF, #00D4FF); color: white; font-size: 24px; padding: 10px 20px; border-radius: 8px;');
 console.log('%c Desenvolvimento Web Profissional ', 'color: #0066FF; font-size: 14px;');
 console.log('%c Interessado em trabalhar conosco? Entre em contato! ', 'color: #666; font-size: 12px;');
+
+// ============ MODAL DE PROJETOS ============
+
+// Classe Project
+class Project {
+  constructor(title, description, icon, link) {
+    this.title = title;
+    this.description = description;
+    this.icon = icon;
+    this.link = link;
+  }
+}
+
+// Classe ProjectBuilder
+class ProjectBuilder {
+  constructor() {
+    this.title = "";
+    this.description = "";
+    this.icon = "box";
+    this.link = "#";
+  }
+  setTitle(title) {
+    this.title = title;
+    return this;
+  }
+  setDescription(description) {
+    this.description = description;
+    return this;
+  }
+  setIcon(icon) {
+    this.icon = icon;
+    return this;
+  }
+  setLink(link) {
+    this.link = link;
+    return this;
+  }
+  build() {
+    return new Project(this.title, this.description, this.icon, this.link);
+  }
+}
+
+// Classe ProjectsModal
+class ProjectsModal {
+  constructor(modalId, openBtnId, closeBtnId, projectsContainerId) {
+    this.modal = document.getElementById(modalId);
+    this.openBtn = document.getElementById(openBtnId);
+    this.closeBtn = document.getElementById(closeBtnId);
+
+    if (!this.modal || !this.openBtn || !this.closeBtn) {
+      console.warn("Modal elements not found. Projects modal disabled.");
+      return;
+    }
+
+    this.overlay = this.modal.querySelector(".modal__overlay");
+    this.container = document.getElementById(projectsContainerId);
+
+    this.initEvents();
+  }
+
+  initEvents() {
+    if (!this.openBtn || !this.closeBtn) return;
+
+    this.openBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.open();
+    });
+    this.closeBtn.addEventListener("click", () => this.close());
+    if (this.overlay) {
+      this.overlay.addEventListener("click", () => this.close());
+    }
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") this.close();
+    });
+  }
+
+  open() {
+    this.modal.classList.add("is-active");
+    document.body.style.overflow = 'hidden';
+  }
+
+  close() {
+    this.modal.classList.remove("is-active");
+    document.body.style.overflow = '';
+  }
+
+  renderProjects(projects) {
+    if (!this.container) return;
+
+    this.container.innerHTML = "";
+    projects.forEach((p) => {
+      const card = document.createElement("div");
+      card.className = "project-card";
+      card.innerHTML = `
+        <div class="project-card__icon">
+          <i data-lucide="${p.icon}" style="width: 64px; height: 64px; color: #fff;"></i>
+        </div>
+        <h3>${p.title}</h3>
+        <p>${p.description}</p>
+        <a href="${p.link}" target="_blank" rel="noopener noreferrer">Acessar</a>
+      `;
+      this.container.appendChild(card);
+    });
+
+    // Re-initialize Lucide icons after rendering
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  }
+}
+
+// Inicializar Modal de Projetos
+document.addEventListener('DOMContentLoaded', () => {
+  // Projetos reais desenvolvidos pela Hodevweb
+  const projects = [
+    new ProjectBuilder()
+      .setTitle("Caique Imobiliaria")
+      .setDescription("Site responsivo completo para imobiliaria com design moderno e navegacao intuitiva.")
+      .setIcon("home")
+      .setLink("https://hhudsonoliveira.github.io/caiquesnt-imobiliaria/")
+      .build(),
+    new ProjectBuilder()
+      .setTitle("Barbearia Profissional")
+      .setDescription("Website responsivo para barbearia com agendamento e galeria de servicos.")
+      .setIcon("scissors")
+      .setLink("https://hhudsonoliveira.github.io/Barbearia/")
+      .build(),
+    new ProjectBuilder()
+      .setTitle("JV Beleza e Estetica")
+      .setDescription("Landing page de alta conversao para clinica de estetica, focada em captacao de clientes.")
+      .setIcon("sparkles")
+      .setLink("https://jvsaudebelezaestetica.com")
+      .build(),
+  ];
+
+  // Inicializar o modal de projetos
+  const modal = new ProjectsModal(
+    "projectsModal",
+    "openProjectsBtn",
+    "closeModalBtn",
+    "projectsContainer"
+  );
+
+  // Renderizar projetos no modal
+  if (modal.container) {
+    modal.renderProjects(projects);
+  }
+});
