@@ -535,20 +535,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Projetos reais desenvolvidos pela Hodevweb
   const projects = [
     new ProjectBuilder()
-      .setTitle("Caique Imobiliaria")
-      .setDescription("Site responsivo completo para imobiliaria com design moderno e navegacao intuitiva.")
+      .setTitle("Caique Imobiliária")
+      .setDescription("Site responsivo completo para imobiliária com design moderno e navegação intuitiva.")
       .setIcon("home")
       .setLink("https://hhudsonoliveira.github.io/caiquesnt-imobiliaria/")
       .build(),
     new ProjectBuilder()
       .setTitle("Barbearia Profissional")
-      .setDescription("Website responsivo para barbearia com agendamento e galeria de servicos.")
+      .setDescription("Website responsivo para barbearia com agendamento e galeria de serviços.")
       .setIcon("scissors")
       .setLink("https://hhudsonoliveira.github.io/Barbearia/")
       .build(),
     new ProjectBuilder()
-      .setTitle("JV Beleza e Estetica")
-      .setDescription("Landing page de alta conversao para clinica de estetica, focada em captacao de clientes.")
+      .setTitle("JV Beleza e Estética")
+      .setDescription("Landing page de alta conversão para clínica de estética, focada em captação de clientes.")
       .setIcon("sparkles")
       .setLink("https://jvsaudebelezaestetica.com")
       .build(),
