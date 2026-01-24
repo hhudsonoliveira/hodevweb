@@ -566,6 +566,11 @@
   gap: var(--spacing-lg);
 }
 
+.testimonials__grid--single {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 /* ============ CTA SECTION ============ */
 
 .cta {
