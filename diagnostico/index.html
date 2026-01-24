@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Diagnóstico Empresarial Gratuito | HO DEVWEB</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Faça um diagnóstico completo da sua empresa e descubra como a automação e tecnologia podem transformar seu negócio. Análise gratuita por Hudson Oliveira.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HO DEVWEB - Hudson Oliveira">
+
+  <!-- Mobile/PWA -->
+  <meta name="theme-color" content="#0066cc">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Diagnóstico HO DEVWEB">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Diagnóstico Empresarial Gratuito | HO DEVWEB">
+  <meta property="og:description" content="Análise completa do seu negócio por Hudson Oliveira. Automação e desenvolvimento web profissional.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hodevweb.com.br/diagnostico/">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
+
+  <!-- Preload fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==================== BARRA DE PROGRESSO ==================== -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+
+  <div class="progress-info">
+    <span class="progress-text" id="progress-text">1 de 17</span>
+    <span class="progress-time">⏱️ ~3 min</span>
+  </div>
+
+  <!-- ==================== CONTAINER PRINCIPAL ==================== -->
+  <main class="container">
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="hero-header">
+      <div class="logo-container">
+        <div class="logo-glow"></div>
+        <h1 class="logo-text">HO<span class="logo-highlight">DEVWEB</span></h1>
+      </div>
+      <p class="tagline">Transformando Negócios com Tecnologia</p>
+    </header>
+
+    <!-- ==================== INTRO ==================== -->
+    <div class="diagnostic-intro">
+      <div class="icon-badge">💡</div>
+      <h2 class="intro-title">Diagnóstico Empresarial Inteligente</h2>
+      <p class="intro-subtitle">
+        Análise personalizada por <strong>Hudson Oliveira</strong><br>
+        Especialista em Automação e Web Development
+      </p>
+      <div class="intro-stats">
+        <div class="stat">
+          <span class="stat-number">17</span>
+          <span class="stat-label">perguntas</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">~3</span>
+          <span class="stat-label">minutos</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">gratuito</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== FORMULÁRIO ==================== -->
+    <form id="diagnostico-form" class="form-container" autocomplete="off">
+
+      <!-- ===== PERGUNTA 1 - Nome ===== -->
+      <div class="step step-1 active">
+        <div class="question-card">
+          <div class="question-icon">👤</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Olá! Para começar...</p>
+            <h3 class="question-title">Qual é o seu nome?</h3>
+          </div>
+          <div class="input-wrapper">
+            <input type="text" id="nome" name="nome" class="glass-input" placeholder="Seu nome completo" required>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-continue" onclick="nextStep()">
+              <span class="btn-text">Continuar</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+          <p class="input-hint"><kbd>Enter ↵</kbd> para continuar</p>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 2 - Email ===== -->
+      <div class="step step-2">
+        <div class="question-card">
+          <div class="question-icon">✉️</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Perfeito! Agora me diga...</p>
+            <h3 class="question-title">Qual é o seu e-mail?</h3>
+          </div>
+          <div class="input-wrapper input-with-icon">
+            <span class="input-icon">📧</span>
+            <input type="email" id="email" name="email" class="glass-input" placeholder="seu@email.com" required>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+            <button type="button" class="btn-continue" onclick="nextStep()">
+              <span class="btn-text">Continuar</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+          <p class="input-hint"><kbd>Enter ↵</kbd> para continuar</p>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 3 - WhatsApp ===== -->
+      <div class="step step-3">
+        <div class="question-card">
+          <div class="question-icon">📱</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Como posso te chamar...</p>
+            <h3 class="question-title">Seu WhatsApp</h3>
+          </div>
+          <div class="input-wrapper">
+            <div class="phone-wrapper">
+              <div class="country-flag">
+                <span>🇧🇷</span>
+                <span class="country-code">+55</span>
+              </div>
+              <input type="tel" id="whatsapp" name="whatsapp" class="glass-input" placeholder="(71) 99999-9999" required>
+            </div>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+            <button type="button" class="btn-continue" onclick="nextStep()">
+              <span class="btn-text">Continuar</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+          <p class="input-hint"><kbd>Enter ↵</kbd> para continuar</p>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 4 - Nome da Empresa ===== -->
+      <div class="step step-4">
+        <div class="question-card">
+          <div class="question-icon">🏢</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Legal! Agora sobre sua empresa...</p>
+            <h3 class="question-title">Qual é o nome da sua empresa?</h3>
+          </div>
+          <div class="input-wrapper">
+            <input type="text" id="empresa" name="empresa" class="glass-input" placeholder="Nome da empresa" required>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+            <button type="button" class="btn-continue" onclick="nextStep()">
+              <span class="btn-text">Continuar</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+          <p class="input-hint"><kbd>Enter ↵</kbd> para continuar</p>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 5 - Site da Empresa ===== -->
+      <div class="step step-5">
+        <div class="question-card">
+          <div class="question-icon">🌐</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Sua empresa já tem presença online?</p>
+            <h3 class="question-title">Site da Empresa</h3>
+          </div>
+          <div class="input-wrapper input-with-icon">
+            <span class="input-icon">🔗</span>
+            <input type="url" id="site" name="site" class="glass-input" placeholder="https://suaempresa.com.br" required>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+            <button type="button" class="btn-continue" onclick="nextStep()">
+              <span class="btn-text">Continuar</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+          <p class="input-hint"><kbd>Enter ↵</kbd> para continuar</p>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 6 - Funcionários ===== -->
+      <div class="step step-6">
+        <div class="question-card">
+          <div class="question-icon">👥</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Sobre o tamanho da empresa...</p>
+            <h3 class="question-title">Quantas pessoas trabalham na sua empresa hoje?</h3>
+          </div>
+          <div class="option-cards" data-field="funcionarios">
+            <div class="option-card" data-value="2-10">
+              <div class="card-icon">👤👤</div>
+              <div class="card-label">2 a 10</div>
+            </div>
+            <div class="option-card" data-value="11-50">
+              <div class="card-icon">👥</div>
+              <div class="card-label">11 a 50</div>
+            </div>
+            <div class="option-card" data-value="51-200">
+              <div class="card-icon">👥👥</div>
+              <div class="card-label">51 a 200</div>
+            </div>
+            <div class="option-card" data-value="200+">
+              <div class="card-icon">🏢</div>
+              <div class="card-label">Mais de 200</div>
+            </div>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 7 - Contatos por dia ===== -->
+      <div class="step step-7">
+        <div class="question-card">
+          <div class="question-icon">📊</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Sobre a demanda de atendimento...</p>
+            <h3 class="question-title">Quantos contatos sua empresa recebe por dia nos canais de comunicação?</h3>
+          </div>
+          <div class="option-cards" data-field="contatos">
+            <div class="option-card" data-value="menos-10">
+              <div class="card-icon">📩</div>
+              <div class="card-label">Menos de 10</div>
+            </div>
+            <div class="option-card" data-value="10-50">
+              <div class="card-icon">📬</div>
+              <div class="card-label">10 - 50</div>
+            </div>
+            <div class="option-card" data-value="50-200">
+              <div class="card-icon">📫</div>
+              <div class="card-label">50 - 200</div>
+            </div>
+            <div class="option-card" data-value="200+">
+              <div class="card-icon">📮</div>
+              <div class="card-label">Mais de 200</div>
+            </div>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 8 - Objetivo do Chatbot ===== -->
+      <div class="step step-8">
+        <div class="question-card">
+          <div class="question-icon">🎯</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Vamos entender seus objetivos...</p>
+            <h3 class="question-title">Qual o principal objetivo ao implementar um chatbot inteligente em sua empresa?</h3>
+          </div>
+          <div class="quick-suggestions">
+            <button type="button" class="suggestion-pill">💰 Aumentar vendas</button>
+            <button type="button" class="suggestion-pill">⚡ Agilizar processos</button>
+            <button type="button" class="suggestion-pill">💬 Melhorar atendimento</button>
+            <button type="button" class="suggestion-pill">📉 Reduzir custos</button>
+          </div>
+          <div class="input-wrapper">
+            <textarea id="objetivo" name="objetivo" class="glass-input" placeholder="Ex: faturar mais, automatizar atendimento..." required></textarea>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+            <button type="button" class="btn-continue" onclick="nextStep()">
+              <span class="btn-text">Continuar</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 9 - Função do Chatbot ===== -->
+      <div class="step step-9">
+        <div class="question-card">
+          <div class="question-icon">🤖</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Sobre as funcionalidades...</p>
+            <h3 class="question-title">Qual a principal função que você deseja que o chatbot tenha?</h3>
+          </div>
+          <div class="quick-suggestions">
+            <button type="button" class="suggestion-pill">🛒 Vendas</button>
+            <button type="button" class="suggestion-pill">📅 Agendamentos</button>
+            <button type="button" class="suggestion-pill">❓ Suporte</button>
+            <button type="button" class="suggestion-pill">📋 Qualificação de leads</button>
+          </div>
+          <div class="input-wrapper">
+            <textarea id="funcao" name="funcao" class="glass-input" placeholder="Descreva a principal função..." required></textarea>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+            <button type="button" class="btn-continue" onclick="nextStep()">
+              <span class="btn-text">Continuar</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 10 - Bot Existente ===== -->
+      <div class="step step-10">
+        <div class="question-card">
+          <div class="question-icon">💭</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Sobre sua situação atual...</p>
+            <h3 class="question-title">Você já possui algum bot? Tem preferência por alguma plataforma?</h3>
+          </div>
+          <div class="input-wrapper">
+            <textarea id="bot_existente" name="bot_existente" class="glass-input" placeholder="Ex: Não tenho bot ainda / Uso o ManyChat / Prefiro n8n..." required></textarea>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+            <button type="button" class="btn-continue" onclick="nextStep()">
+              <span class="btn-text">Continuar</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 11 - Canais de Comunicação ===== -->
+      <div class="step step-11">
+        <div class="question-card">
+          <div class="question-icon">📢</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Sobre os canais de atendimento...</p>
+            <h3 class="question-title">Quais canais de comunicação você quer implementar o bot com I.A?</h3>
+          </div>
+          <div class="checkbox-cards">
+            <label class="checkbox-card">
+              <input type="checkbox" name="canais" value="whatsapp">
+              <div class="checkbox-content">
+                <div class="checkbox-icon">💬</div>
+                <span class="checkbox-label">WhatsApp</span>
+              </div>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="canais" value="instagram">
+              <div class="checkbox-content">
+                <div class="checkbox-icon">📸</div>
+                <span class="checkbox-label">Instagram</span>
+              </div>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="canais" value="telegram">
+              <div class="checkbox-content">
+                <div class="checkbox-icon">✈️</div>
+                <span class="checkbox-label">Telegram</span>
+              </div>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="canais" value="chat_interno">
+              <div class="checkbox-content">
+                <div class="checkbox-icon">💻</div>
+                <span class="checkbox-label">Chat Interno</span>
+              </div>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="canais" value="facebook">
+              <div class="checkbox-content">
+                <div class="checkbox-icon">👍</div>
+                <span class="checkbox-label">Facebook</span>
+              </div>
+            </label>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+            <button type="button" class="btn-continue" onclick="nextStep()">
+              <span class="btn-text">Continuar</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 12 - Integração com Sistema ===== -->
+      <div class="step step-12">
+        <div class="question-card">
+          <div class="question-icon">🔗</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Sobre integrações necessárias...</p>
+            <h3 class="question-title">O chatbot precisará se integrar com algum sistema existente em sua empresa?</h3>
+          </div>
+          <div class="input-wrapper">
+            <textarea id="integracao_sistema" name="integracao_sistema" class="glass-input" placeholder="Ex: Google Calendar, CRM, ERP, Planilhas..." required></textarea>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+            <button type="button" class="btn-continue" onclick="nextStep()">
+              <span class="btn-text">Continuar</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 13 - Ferramentas Utilizadas ===== -->
+      <div class="step step-13">
+        <div class="question-card">
+          <div class="question-icon">🛠️</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Sobre suas ferramentas atuais...</p>
+            <h3 class="question-title">Quais ferramentas/apps você já utiliza hoje nesse projeto?</h3>
+          </div>
+          <div class="checkbox-cards">
+            <label class="checkbox-card">
+              <input type="checkbox" name="ferramentas" value="crm">
+              <div class="checkbox-content">
+                <div class="checkbox-icon">📊</div>
+                <span class="checkbox-label">CRM</span>
+              </div>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="ferramentas" value="whatsapp">
+              <div class="checkbox-content">
+                <div class="checkbox-icon">💬</div>
+                <span class="checkbox-label">WhatsApp</span>
+              </div>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="ferramentas" value="redes_sociais">
+              <div class="checkbox-content">
+                <div class="checkbox-icon">📱</div>
+                <span class="checkbox-label">Redes Sociais</span>
+              </div>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="ferramentas" value="anuncios">
+              <div class="checkbox-content">
+                <div class="checkbox-icon">📣</div>
+                <span class="checkbox-label">Anúncios Online</span>
+              </div>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="ferramentas" value="erp">
+              <div class="checkbox-content">
+                <div class="checkbox-icon">🏭</div>
+                <span class="checkbox-label">ERPs</span>
+              </div>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="ferramentas" value="formularios">
+              <div class="checkbox-content">
+                <div class="checkbox-icon">📝</div>
+                <span class="checkbox-label">Formulários</span>
+              </div>
+            </label>
+            <label class="checkbox-card">
+              <input type="checkbox" name="ferramentas" value="cursos">
+              <div class="checkbox-content">
+                <div class="checkbox-icon">🎓</div>
+                <span class="checkbox-label">Plataforma de Cursos</span>
+              </div>
+            </label>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+            <button type="button" class="btn-continue" onclick="nextStep()">
+              <span class="btn-text">Continuar</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 14 - Integração de Terceiros ===== -->
+      <div class="step step-14">
+        <div class="question-card">
+          <div class="question-icon">🔌</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Mais sobre integrações...</p>
+            <h3 class="question-title">Há alguma integração de terceiros que você gostaria de implementar?</h3>
+          </div>
+          <div class="input-wrapper">
+            <textarea id="integracao_terceiros" name="integracao_terceiros" class="glass-input" placeholder="Ex: Zapier, Make, APIs específicas, pagamentos..." required></textarea>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+            <button type="button" class="btn-continue" onclick="nextStep()">
+              <span class="btn-text">Continuar</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 15 - Data ===== -->
+      <div class="step step-15">
+        <div class="question-card">
+          <div class="question-icon">📅</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Sobre o prazo desejado...</p>
+            <h3 class="question-title">Por favor, especifique a data desejada para início (pode ser aproximada)</h3>
+          </div>
+          <div class="input-wrapper">
+            <input type="date" id="data" name="data" class="glass-input" required>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+            <button type="button" class="btn-continue" onclick="nextStep()">
+              <span class="btn-text">Continuar</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+          <p class="input-hint"><kbd>Enter ↵</kbd> para continuar</p>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 16 - Faturamento ===== -->
+      <div class="step step-16">
+        <div class="question-card">
+          <div class="question-icon">💰</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Para entender melhor o perfil da empresa...</p>
+            <h3 class="question-title">Qual o Faturamento MENSAL médio da sua empresa nos últimos 12 meses?</h3>
+          </div>
+          <div class="question-note">
+            ⚠️ Lembre-se que nosso time vai qualificar as informações antes de entrar em contato. Sua resposta é confidencial.
+          </div>
+          <div class="option-cards" data-field="faturamento">
+            <div class="option-card" data-value="menos-5k">
+              <div class="card-icon">💵</div>
+              <div class="card-label">Menos de R$ 5.000</div>
+            </div>
+            <div class="option-card" data-value="5k-10k">
+              <div class="card-icon">💵💵</div>
+              <div class="card-label">R$ 5.000 a R$ 10.000</div>
+            </div>
+            <div class="option-card" data-value="10k-25k">
+              <div class="card-icon">💰</div>
+              <div class="card-label">R$ 10.000 a R$ 25.000</div>
+            </div>
+            <div class="option-card" data-value="25k-50k">
+              <div class="card-icon">💰💰</div>
+              <div class="card-label">R$ 25.000 a R$ 50.000</div>
+            </div>
+            <div class="option-card" data-value="100k+">
+              <div class="card-icon">🏆</div>
+              <div class="card-label">Acima de R$ 100.000</div>
+            </div>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PERGUNTA 17 - Investimento ===== -->
+      <div class="step step-17">
+        <div class="question-card">
+          <div class="question-icon">💵</div>
+          <div class="chat-bubble">
+            <p class="question-intro">Última pergunta!</p>
+            <h3 class="question-title">Quanto você pretende investir nesse projeto?</h3>
+          </div>
+          <div class="option-cards" data-field="investimento">
+            <div class="option-card" data-value="menos-5k">
+              <div class="card-icon">💳</div>
+              <div class="card-label">Menos de R$ 5.000</div>
+            </div>
+            <div class="option-card" data-value="5k-10k">
+              <div class="card-icon">💳💳</div>
+              <div class="card-label">R$ 5.000 - R$ 10.000</div>
+            </div>
+            <div class="option-card" data-value="10k-30k">
+              <div class="card-icon">💎</div>
+              <div class="card-label">R$ 10.000 - R$ 30.000</div>
+            </div>
+            <div class="option-card" data-value="30k-50k">
+              <div class="card-icon">💎💎</div>
+              <div class="card-label">R$ 30.000 - R$ 50.000</div>
+            </div>
+            <div class="option-card" data-value="50k+">
+              <div class="card-icon">🚀</div>
+              <div class="card-label">Mais de R$ 50.000</div>
+            </div>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </main>
+
+  <script src="js/form.js"></script>
+
+</body>
+</html>

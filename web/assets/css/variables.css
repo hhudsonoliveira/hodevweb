@@ -1,0 +1,143 @@
+/* =====================================================
+   CSS VARIABLES - HoDevWeb
+   Paleta de cores, tipografia e tokens de design
+   ===================================================== */
+
+:root {
+  /* ============ CORES PRINCIPAIS ============ */
+  --primary: #0066FF;
+  --primary-dark: #004ECC;
+  --primary-light: #3385FF;
+  --secondary: #00D4FF;
+  --accent: #FF6B00;
+  --accent-purple: #6C5CE7;
+
+  /* ============ BACKGROUNDS ============ */
+  --bg-dark: #0A0E27;
+  --bg-darker: #060918;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.06);
+  --bg-glass: rgba(255, 255, 255, 0.05);
+  --bg-light: #F8F9FA;
+
+  /* ============ TEXTO ============ */
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.5);
+  --text-dark: #1A1A1A;
+
+  /* ============ GRADIENTES ============ */
+  --gradient-primary: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+  --gradient-secondary: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+  --gradient-hero: linear-gradient(135deg, #0A0E27 0%, #1A1F3D 50%, #0A0E27 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+  --gradient-glow: radial-gradient(circle at 50% 50%, rgba(0, 102, 255, 0.15) 0%, transparent 70%);
+  --gradient-text: linear-gradient(135deg, #0066FF 0%, #00D4FF 50%, #6C5CE7 100%);
+
+  /* ============ SOMBRAS ============ */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 40px rgba(0, 102, 255, 0.3);
+  --shadow-glow-sm: 0 0 20px rgba(0, 102, 255, 0.2);
+
+  /* ============ BORDAS ============ */
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-color-hover: rgba(255, 255, 255, 0.2);
+
+  /* ============ BORDER RADIUS ============ */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 30px;
+  --radius-full: 9999px;
+
+  /* ============ ESPACAMENTOS ============ */
+  --spacing-xs: 0.5rem;    /* 8px */
+  --spacing-sm: 1rem;      /* 16px */
+  --spacing-md: 1.5rem;    /* 24px */
+  --spacing-lg: 2rem;      /* 32px */
+  --spacing-xl: 3rem;      /* 48px */
+  --spacing-2xl: 4rem;     /* 64px */
+  --spacing-3xl: 6rem;     /* 96px */
+  --spacing-4xl: 8rem;     /* 128px */
+
+  /* ============ CONTAINER ============ */
+  --container-max: 1200px;
+  --container-padding: 1.5rem;
+
+  /* ============ TRANSICOES ============ */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ============ TIPOGRAFIA ============ */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Font Sizes */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 1.875rem;    /* 30px */
+  --text-4xl: 2.25rem;     /* 36px */
+  --text-5xl: 3rem;        /* 48px */
+  --text-6xl: 3.75rem;     /* 60px */
+  --text-7xl: 4.5rem;      /* 72px */
+
+  /* Font Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+
+  /* Line Heights */
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  /* ============ Z-INDEX ============ */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+  --z-cursor: 9999;
+}
+
+/* ============ DARK MODE ADJUSTMENTS (if needed) ============ */
+@media (prefers-color-scheme: light) {
+  :root {
+    /* Keep dark theme regardless of system preference */
+  }
+}
+
+/* ============ RESPONSIVE FONT SIZES ============ */
+@media (max-width: 768px) {
+  :root {
+    --text-5xl: 2.25rem;
+    --text-6xl: 2.75rem;
+    --text-7xl: 3.25rem;
+    --spacing-3xl: 4rem;
+    --spacing-4xl: 5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --text-4xl: 1.875rem;
+    --text-5xl: 2rem;
+    --text-6xl: 2.25rem;
+    --text-7xl: 2.75rem;
+    --container-padding: 1rem;
+  }
+}

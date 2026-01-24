@@ -1,0 +1,160 @@
+/* =====================================================
+   RESET CSS - HoDevWeb
+   Normalização e estilos base
+   ===================================================== */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-dark);
+  overflow-x: hidden;
+}
+
+/* Remove default list styles */
+ul, ol {
+  list-style: none;
+}
+
+/* Remove default link styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Reset buttons */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+/* Reset inputs */
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  outline: none;
+}
+
+/* Reset images */
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Remove default focus outline - add custom later */
+:focus {
+  outline: none;
+}
+
+/* Focus visible for accessibility */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--primary);
+  color: var(--text-light);
+}
+
+/* GPU Acceleration for animated elements */
+.animated-element,
+.service-card,
+.pricing-card,
+.hero-image,
+.float-element {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .custom-cursor,
+  .cursor-follower {
+    display: none !important;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Hide scrollbar for specific containers if needed */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============ FALLBACK: Garantir visibilidade ============ */
+/* Garante que elementos importantes sejam visiveis mesmo se JS falhar */
+.card,
+.service-card,
+.pricing-card,
+.testimonial-card,
+.process__step,
+.stats__item,
+.section-header,
+.section-title,
+.section-subtitle,
+.section-tag,
+.hero__content,
+.hero__badge,
+.hero__title,
+.hero__subtitle,
+.hero__buttons,
+.footer__col,
+.footer__brand,
+.contact__form,
+.contact__info {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
