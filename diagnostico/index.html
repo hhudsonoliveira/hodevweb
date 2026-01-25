@@ -36,6 +36,24 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1531047617953273');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1531047617953273&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -245,7 +263,7 @@
             <p class="question-intro">Sobre a demanda de atendimento...</p>
             <h3 class="question-title">Quantos contatos sua empresa recebe por dia nos canais de comunicação?</h3>
           </div>
-          <div class="option-cards" data-field="contatos">
+          <div class="option-cards" data-field="contatos_dia">
             <div class="option-card" data-value="menos-10">
               <div class="card-icon">📩</div>
               <div class="card-label">Menos de 10</div>
@@ -311,7 +329,7 @@
             <button type="button" class="suggestion-pill">📋 Qualificação de leads</button>
           </div>
           <div class="input-wrapper">
-            <textarea id="funcao" name="funcao" class="glass-input" placeholder="Descreva a principal função..." required></textarea>
+            <textarea id="funcao_principal" name="funcao_principal" class="glass-input" placeholder="Descreva a principal função..." required></textarea>
           </div>
           <div class="btn-group">
             <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
@@ -332,7 +350,7 @@
             <h3 class="question-title">Você já possui algum bot? Tem preferência por alguma plataforma?</h3>
           </div>
           <div class="input-wrapper">
-            <textarea id="bot_existente" name="bot_existente" class="glass-input" placeholder="Ex: Não tenho bot ainda / Uso o ManyChat / Prefiro n8n..." required></textarea>
+            <textarea id="possui_bot" name="possui_bot" class="glass-input" placeholder="Ex: Não tenho bot ainda / Uso o ManyChat / Prefiro n8n..." required></textarea>
           </div>
           <div class="btn-group">
             <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>
@@ -430,49 +448,49 @@
           </div>
           <div class="checkbox-cards">
             <label class="checkbox-card">
-              <input type="checkbox" name="ferramentas" value="crm">
+              <input type="checkbox" name="ferramentas_atuais" value="crm">
               <div class="checkbox-content">
                 <div class="checkbox-icon">📊</div>
                 <span class="checkbox-label">CRM</span>
               </div>
             </label>
             <label class="checkbox-card">
-              <input type="checkbox" name="ferramentas" value="whatsapp">
+              <input type="checkbox" name="ferramentas_atuais" value="whatsapp">
               <div class="checkbox-content">
                 <div class="checkbox-icon">💬</div>
                 <span class="checkbox-label">WhatsApp</span>
               </div>
             </label>
             <label class="checkbox-card">
-              <input type="checkbox" name="ferramentas" value="redes_sociais">
+              <input type="checkbox" name="ferramentas_atuais" value="redes_sociais">
               <div class="checkbox-content">
                 <div class="checkbox-icon">📱</div>
                 <span class="checkbox-label">Redes Sociais</span>
               </div>
             </label>
             <label class="checkbox-card">
-              <input type="checkbox" name="ferramentas" value="anuncios">
+              <input type="checkbox" name="ferramentas_atuais" value="anuncios">
               <div class="checkbox-content">
                 <div class="checkbox-icon">📣</div>
                 <span class="checkbox-label">Anúncios Online</span>
               </div>
             </label>
             <label class="checkbox-card">
-              <input type="checkbox" name="ferramentas" value="erp">
+              <input type="checkbox" name="ferramentas_atuais" value="erp">
               <div class="checkbox-content">
                 <div class="checkbox-icon">🏭</div>
                 <span class="checkbox-label">ERPs</span>
               </div>
             </label>
             <label class="checkbox-card">
-              <input type="checkbox" name="ferramentas" value="formularios">
+              <input type="checkbox" name="ferramentas_atuais" value="formularios">
               <div class="checkbox-content">
                 <div class="checkbox-icon">📝</div>
                 <span class="checkbox-label">Formulários</span>
               </div>
             </label>
             <label class="checkbox-card">
-              <input type="checkbox" name="ferramentas" value="cursos">
+              <input type="checkbox" name="ferramentas_atuais" value="cursos">
               <div class="checkbox-content">
                 <div class="checkbox-icon">🎓</div>
                 <span class="checkbox-label">Plataforma de Cursos</span>
@@ -519,7 +537,7 @@
             <h3 class="question-title">Por favor, especifique a data desejada para início (pode ser aproximada)</h3>
           </div>
           <div class="input-wrapper">
-            <input type="date" id="data" name="data" class="glass-input" required>
+            <input type="date" id="data_aproximada" name="data_aproximada" class="glass-input" required>
           </div>
           <div class="btn-group">
             <button type="button" class="btn-back" onclick="prevStep()">← Voltar</button>

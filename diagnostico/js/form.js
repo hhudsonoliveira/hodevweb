@@ -1,6 +1,7 @@
 /* =====================================================
    HO DEVWEB - DIAGNÓSTICO EMPRESARIAL PREMIUM
    JavaScript Moderno com Animações
+   Versão corrigida - Todos os campos tratados
    ===================================================== */
 
 // ============================================
@@ -219,7 +220,7 @@ function validateCurrentStep() {
       }
     }
 
-    // Validação de URL
+    // Validação de URL (opcional - não obrigatório)
     if (input.type === 'url' && input.value && !isValidURL(input.value)) {
       showError('URL inválida. Ex: https://site.com.br');
       input.classList.add('error');
@@ -252,6 +253,11 @@ function validateCurrentStep() {
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function isValidPhone(phone) {
+  const digits = phone.replace(/\D/g, '');
+  return digits.length >= 10 && digits.length <= 11;
 }
 
 function isValidURL(url) {
@@ -320,14 +326,14 @@ function saveStepData() {
   const input = step.querySelector('input:not([type="checkbox"]), textarea');
   if (input && input.value) {
     const fieldName = input.name || input.id || `step_${FormState.currentStep}`;
-    FormState.data[fieldName] = input.value;
+    FormState.data[fieldName] = input.value.trim();
   }
 
   // Salva option cards selecionados
   const selectedCard = step.querySelector('.option-card.selected');
   if (selectedCard) {
     const fieldName = selectedCard.closest('[data-field]')?.dataset.field || `step_${FormState.currentStep}`;
-    FormState.data[fieldName] = selectedCard.dataset.value;
+    FormState.data[fieldName] = selectedCard.dataset.value || selectedCard.textContent.trim();
   }
 
   // Salva checkboxes
@@ -365,7 +371,7 @@ function setupOptionCards() {
       // Limpa erro se houver
       clearErrors();
 
-      // Auto-avança após pequeno delay (opcional)
+      // Auto-avança após pequeno delay
       setTimeout(() => {
         nextStep();
       }, 400);
@@ -483,38 +489,352 @@ function setupEventListeners() {
 }
 
 // ============================================
+// ANIMAÇÕES DE LOADING E FEEDBACK
+// ============================================
+
+function showLoadingAnimation() {
+  // Cria overlay de loading
+  const overlay = document.createElement('div');
+  overlay.id = 'loading-overlay';
+  overlay.innerHTML = `
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Enviando seus dados...</p>
+    </div>
+  `;
+
+  // Estilos inline
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 14, 39, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    backdrop-filter: blur(10px);
+  `;
+
+  const spinnerStyles = document.createElement('style');
+  spinnerStyles.textContent = `
+    .loading-spinner {
+      text-align: center;
+      color: #fff;
+    }
+    .loading-spinner .spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(0, 102, 255, 0.2);
+      border-top-color: #0066FF;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    .loading-spinner p {
+      font-size: 1.2rem;
+      color: #00D4FF;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  `;
+
+  document.head.appendChild(spinnerStyles);
+  document.body.appendChild(overlay);
+}
+
+function hideLoadingAnimation() {
+  const overlay = document.getElementById('loading-overlay');
+  if (overlay) {
+    overlay.remove();
+  }
+}
+
+function showSuccessAnimation() {
+  const overlay = document.createElement('div');
+  overlay.id = 'success-overlay';
+  overlay.innerHTML = `
+    <div class="success-content">
+      <div class="success-icon">✓</div>
+      <h2>Dados Enviados!</h2>
+      <p>Redirecionando...</p>
+    </div>
+  `;
+
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 14, 39, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    backdrop-filter: blur(10px);
+  `;
+
+  const successStyles = document.createElement('style');
+  successStyles.textContent = `
+    .success-content {
+      text-align: center;
+      color: #fff;
+    }
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #00D4FF, #0066FF);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin: 0 auto 20px;
+      animation: scaleIn 0.5s ease;
+    }
+    .success-content h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #00D4FF;
+    }
+    .success-content p {
+      color: rgba(255,255,255,0.7);
+    }
+    @keyframes scaleIn {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+  `;
+
+  document.head.appendChild(successStyles);
+  document.body.appendChild(overlay);
+}
+
+function showErrorModal(message) {
+  const overlay = document.createElement('div');
+  overlay.id = 'error-overlay';
+  overlay.innerHTML = `
+    <div class="error-modal">
+      <div class="error-icon">!</div>
+      <h2>Ops! Algo deu errado</h2>
+      <p>${message}</p>
+      <div class="error-buttons">
+        <button onclick="retrySubmit()" class="btn-retry">Tentar Novamente</button>
+        <button onclick="closeErrorModal()" class="btn-close">Fechar</button>
+      </div>
+    </div>
+  `;
+
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 14, 39, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    backdrop-filter: blur(10px);
+  `;
+
+  const errorStyles = document.createElement('style');
+  errorStyles.textContent = `
+    .error-modal {
+      text-align: center;
+      color: #fff;
+      padding: 40px;
+      max-width: 400px;
+    }
+    .error-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #ff4444, #ff6666);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      font-weight: bold;
+      margin: 0 auto 20px;
+    }
+    .error-modal h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #ff6666;
+    }
+    .error-modal p {
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 20px;
+    }
+    .error-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .btn-retry, .btn-close {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn-retry {
+      background: linear-gradient(135deg, #0066FF, #00D4FF);
+      color: #fff;
+    }
+    .btn-close {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn-retry:hover, .btn-close:hover {
+      transform: translateY(-2px);
+    }
+  `;
+
+  document.head.appendChild(errorStyles);
+  document.body.appendChild(overlay);
+}
+
+function closeErrorModal() {
+  const overlay = document.getElementById('error-overlay');
+  if (overlay) {
+    overlay.remove();
+  }
+}
+
+function retrySubmit() {
+  closeErrorModal();
+  submitForm();
+}
+
+// ============================================
 // ENVIO DO FORMULÁRIO
 // ============================================
 
-function submitForm() {
+async function submitForm() {
   // Salva última etapa
   saveStepData();
 
-  // Calcula tempo gasto
-  const timeSpent = Math.round((Date.now() - FormState.startTime) / 1000);
-  FormState.data.timeSpent = timeSpent;
-  FormState.data.submittedAt = new Date().toISOString();
+  // Mostra loading
+  showLoadingAnimation();
 
-  console.log('=== DADOS DO FORMULÁRIO ===');
-  console.log(FormState.data);
-  console.log('Tempo gasto:', timeSpent, 'segundos');
-  console.log('===========================');
+  // URL do webhook n8n
+  const webhookURL = 'https://hudson-n8n-n8n-webhook.ibb2hf.easypanel.host/webhook/diagnostico-hodevweb';
 
-  // Mostra loading no botão
-  const btn = document.querySelector(`.step-${FormState.currentStep} .btn-continue`);
-  if (btn) {
-    btn.classList.add('loading');
-    const btnText = btn.querySelector('.btn-text');
-    if (btnText) btnText.textContent = 'Enviando...';
+  // Monta payload com todos os campos tratados
+  const payload = {
+    // Dados pessoais
+    nome: FormState.data.nome || 'Não informado',
+    email: FormState.data.email || 'Não informado',
+    whatsapp: FormState.data.whatsapp || 'Não informado',
+
+    // Dados da empresa
+    empresa: FormState.data.empresa || 'Não informado',
+    site: FormState.data.site || 'Não informado',
+    funcionarios: FormState.data.funcionarios || 'Não informado',
+    contatos_dia: FormState.data.contatos_dia || 'Não informado',
+
+    // Objetivos
+    objetivo: FormState.data.objetivo || 'Não informado',
+    funcao_principal: FormState.data.funcao_principal || 'Não informado',
+    possui_bot: FormState.data.possui_bot || 'Não informado',
+
+    // Canais (array)
+    canais: Array.isArray(FormState.data.canais) && FormState.data.canais.length > 0
+      ? FormState.data.canais
+      : ['Não informado'],
+
+    // Integrações
+    integracao_sistema: FormState.data.integracao_sistema || 'Não informado',
+    ferramentas_atuais: Array.isArray(FormState.data.ferramentas_atuais) && FormState.data.ferramentas_atuais.length > 0
+      ? FormState.data.ferramentas_atuais
+      : ['Não informado'],
+    integracao_terceiros: FormState.data.integracao_terceiros || 'Não informado',
+
+    // Datas e valores
+    data_aproximada: FormState.data.data_aproximada || 'Não informado',
+    faturamento: FormState.data.faturamento || 'Não informado',
+    investimento: FormState.data.investimento || 'Não informado',
+
+    // Campos extras que podem existir
+    segmento: FormState.data.segmento || 'Não informado',
+    desafios: FormState.data.desafios || 'Não informado',
+    expectativas: FormState.data.expectativas || 'Não informado',
+    urgencia: FormState.data.urgencia || 'Não informado',
+    como_conheceu: FormState.data.como_conheceu || 'Não informado',
+
+    // Metadata
+    timestamp: new Date().toISOString(),
+    dataFormatada: new Date().toLocaleString('pt-BR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }),
+    origem: 'Landing Page Diagnóstico',
+    url: window.location.href,
+    timeSpent: Math.round((Date.now() - FormState.startTime) / 1000) + ' segundos'
+  };
+
+  console.log('=== PAYLOAD FINAL ===');
+  console.log(JSON.stringify(payload, null, 2));
+  console.log('====================');
+
+  try {
+    // Envia dados para o webhook
+    const response = await fetch(webhookURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erro HTTP: ${response.status}`);
+    }
+
+    console.log('✅ Dados enviados com sucesso para o webhook!');
+
+    // Remove loading e mostra sucesso
+    hideLoadingAnimation();
+    showSuccessAnimation();
+
+    // Limpa localStorage após envio bem-sucedido
+    localStorage.removeItem('hodevweb_diagnostic');
+    localStorage.removeItem('hodevweb_step');
+
+    // Redireciona após animação
+    setTimeout(() => {
+      window.location.href = 'obrigado.html';
+    }, 1500);
+
+  } catch (error) {
+    console.error('❌ Erro ao enviar dados:', error);
+
+    // Remove loading
+    hideLoadingAnimation();
+
+    // Salva dados no localStorage como backup
+    localStorage.setItem('hodevweb_diagnostic_final', JSON.stringify(payload));
+
+    // Mostra modal de erro
+    showErrorModal('Não foi possível enviar seus dados. Seus dados foram salvos localmente.');
+
+    // Redireciona após 3 segundos mesmo com erro
+    setTimeout(() => {
+      window.location.href = 'obrigado.html';
+    }, 3000);
   }
-
-  // Salva dados finais
-  localStorage.setItem('hodevweb_diagnostic_final', JSON.stringify(FormState.data));
-
-  // Simula envio e redireciona
-  setTimeout(() => {
-    window.location.href = 'obrigado.html';
-  }, 1500);
 }
 
 // ============================================
@@ -531,7 +851,7 @@ function goToStep(step) {
   }
 }
 
-// Recupera progresso salvo (opcional)
+// Recupera progresso salvo
 function loadSavedProgress() {
   const savedData = localStorage.getItem('hodevweb_diagnostic');
   const savedStep = localStorage.getItem('hodevweb_step');
@@ -557,6 +877,15 @@ function loadSavedProgress() {
 function clearSavedProgress() {
   localStorage.removeItem('hodevweb_diagnostic');
   localStorage.removeItem('hodevweb_step');
+  localStorage.removeItem('hodevweb_diagnostic_final');
   FormState.data = {};
   FormState.currentStep = 1;
+}
+
+// Debug - mostrar todos os dados coletados
+function debugFormData() {
+  console.log('=== DEBUG FORM DATA ===');
+  console.log('Current Step:', FormState.currentStep);
+  console.log('Data:', JSON.stringify(FormState.data, null, 2));
+  console.log('=======================');
 }
