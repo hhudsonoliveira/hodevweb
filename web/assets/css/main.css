@@ -140,13 +140,14 @@
     justify-content: center;
     align-items: center;
     gap: 0;
-    background: rgba(10, 14, 39, 0.98);
+    background: rgba(10, 14, 39, 1);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     transform: translateX(100%);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
-    padding: 2rem;
+    padding: 1.5rem;
+    overflow-y: auto;
   }
 
   .nav__list.active {
@@ -176,10 +177,10 @@
 
   .nav__link {
     display: block;
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
     font-weight: var(--font-medium);
-    padding: 1rem 1.5rem;
-    margin: 0.25rem 0;
+    padding: 0.75rem 1.5rem;
+    margin: 0.2rem 0;
     border-radius: var(--radius-md);
     text-align: center;
     color: var(--text-secondary);
@@ -206,7 +207,7 @@
 
   .nav__cta {
     margin-left: 0;
-    margin-top: 1rem;
+    margin-top: 0.75rem;
     width: 100%;
     max-width: 280px;
   }
@@ -214,8 +215,8 @@
   .nav__cta .btn {
     width: 100%;
     justify-content: center;
-    padding: 1rem 2rem;
-    font-size: var(--text-base);
+    padding: 0.75rem 2rem;
+    font-size: var(--text-sm);
   }
 
   /* Header fixo quando menu aberto */
