@@ -4,114 +4,6 @@
   ============================================================================
 */
 
-// ============================
-// Projects Modal - Entity & Builder Pattern
-// ============================
-
-class Project {
-  constructor(title, description, icon, link) {
-    this.title = title;
-    this.description = description;
-    this.icon = icon; // Agora usa nome do ícone Lucide ao invés de imagem
-    this.link = link;
-  }
-}
-
-class ProjectBuilder {
-  constructor() {
-    this.title = "";
-    this.description = "";
-    this.icon = "box"; // Ícone padrão
-    this.link = "#";
-  }
-  setTitle(title) {
-    this.title = title;
-    return this;
-  }
-  setDescription(description) {
-    this.description = description;
-    return this;
-  }
-  setIcon(icon) {
-    this.icon = icon;
-    return this;
-  }
-  setLink(link) {
-    this.link = link;
-    return this;
-  }
-  build() {
-    return new Project(this.title, this.description, this.icon, this.link);
-  }
-}
-
-// ============================
-// Projects Modal Controller
-// ============================
-
-class ProjectsModal {
-  constructor(modalId, openBtnId, closeBtnId, projectsContainerId) {
-    this.modal = document.getElementById(modalId);
-    this.openBtn = document.getElementById(openBtnId);
-    this.closeBtn = document.getElementById(closeBtnId);
-
-    if (!this.modal || !this.openBtn || !this.closeBtn) {
-      console.warn("Modal elements not found. Projects modal disabled.");
-      return;
-    }
-
-    this.overlay = this.modal.querySelector(".modal__overlay");
-    this.container = document.getElementById(projectsContainerId);
-
-    this.initEvents();
-  }
-
-  initEvents() {
-    if (!this.openBtn || !this.closeBtn) return;
-
-    this.openBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      this.open();
-    });
-    this.closeBtn.addEventListener("click", () => this.close());
-    this.overlay.addEventListener("click", () => this.close());
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") this.close();
-    });
-  }
-
-  open() {
-    this.modal.classList.add("is-active");
-  }
-
-  close() {
-    this.modal.classList.remove("is-active");
-  }
-
-  renderProjects(projects) {
-    if (!this.container) return;
-
-    this.container.innerHTML = "";
-    projects.forEach((p) => {
-      const card = document.createElement("div");
-      card.className = "project-card";
-      card.innerHTML = `
-        <div class="project-card__icon">
-          <i data-lucide="${p.icon}" style="width: 64px; height: 64px; color: #fff;"></i>
-        </div>
-        <h3>${p.title}</h3>
-        <p>${p.description}</p>
-        <a href="${p.link}" target="_blank" rel="noopener noreferrer">Acessar</a>
-      `;
-      this.container.appendChild(card);
-    });
-
-    // Re-initialize Lucide icons after rendering
-    if (typeof lucide !== 'undefined') {
-      lucide.createIcons();
-    }
-  }
-}
 
 /*
   SECURITY NOTES (XSS & SQLi hardening – client side)
@@ -491,39 +383,39 @@ async function sendEmailAfterTerms() {
 // Mobile Menu Toggle with Animation
 // ============================
 function initMobileMenu() {
-  const navToggle = document.querySelector(".nav__toggle");
-  const navList = document.querySelector(".nav__list");
-  const navLinks = document.querySelectorAll(".nav__link");
+  const navToggle   = document.querySelector(".nav__toggle");
+  const navList     = document.querySelector(".nav__list");
+  const navLinks    = document.querySelectorAll(".nav__link");
+  const backdrop    = document.querySelector(".nav__backdrop");
+  const drawerClose = document.querySelector(".nav__drawer-close");
 
   if (!navToggle || !navList) return;
 
-  // Toggle menu
-  navToggle.addEventListener("click", () => {
-    navToggle.classList.toggle("is-active");
-    navList.classList.toggle("is-open");
+  function openMenu() {
+    navToggle.classList.add("active");
+    navList.classList.add("active");
+    navToggle.setAttribute("aria-expanded", "true");
+    if (backdrop) { backdrop.style.opacity = "1"; backdrop.style.pointerEvents = "auto"; }
+    document.body.style.overflow = "hidden";
+  }
 
-    // Update aria-expanded for accessibility
-    const isOpen = navList.classList.contains("is-open");
-    navToggle.setAttribute("aria-expanded", isOpen);
+  function closeMenu() {
+    navToggle.classList.remove("active");
+    navList.classList.remove("active");
+    navToggle.setAttribute("aria-expanded", "false");
+    if (backdrop) { backdrop.style.opacity = ""; backdrop.style.pointerEvents = ""; }
+    document.body.style.overflow = "";
+  }
+
+  navToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    navList.classList.contains("active") ? closeMenu() : openMenu();
   });
 
-  // Close menu when clicking on a link
-  navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      navToggle.classList.remove("is-active");
-      navList.classList.remove("is-open");
-      navToggle.setAttribute("aria-expanded", "false");
-    });
-  });
-
-  // Close menu when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!navToggle.contains(e.target) && !navList.contains(e.target)) {
-      navToggle.classList.remove("is-active");
-      navList.classList.remove("is-open");
-      navToggle.setAttribute("aria-expanded", "false");
-    }
-  });
+  navLinks.forEach((link) => link.addEventListener("click", closeMenu));
+  if (backdrop)    backdrop.addEventListener("click", closeMenu);
+  if (drawerClose) drawerClose.addEventListener("click", closeMenu);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
 }
 
 // ============================
@@ -627,42 +519,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     confirmTermsBtn.addEventListener("click", sendEmailAfterTerms);
   }
 
-  // ============================
-  // Projects Modal Initialization
-  // ============================
-
-  // Projetos reais desenvolvidos pela Hodevweb
-  const projects = [
-    new ProjectBuilder()
-      .setTitle("Caique Imobiliária")
-      .setDescription("Site responsivo completo para imobiliária com design moderno e navegação intuitiva.")
-      .setIcon("home")
-      .setLink("https://hhudsonoliveira.github.io/caiquesnt-imobiliaria/")
-      .build(),
-    new ProjectBuilder()
-      .setTitle("Barbearia Profissional")
-      .setDescription("Website responsivo para barbearia com agendamento e galeria de serviços.")
-      .setIcon("scissors")
-      .setLink("https://hhudsonoliveira.github.io/Barbearia/")
-      .build(),
-    new ProjectBuilder()
-      .setTitle("JV Beleza e Estética")
-      .setDescription("Landing page de alta conversão para clínica de estética, focada em captação de clientes.")
-      .setIcon("sparkles")
-      .setLink("https://jvsaudebelezaestetica.com")
-      .build(),
-  ];
-
-  // Inicializar o modal de projetos
-  const modal = new ProjectsModal(
-    "projectsModal",
-    "openProjectsBtn",
-    "closeModalBtn",
-    "projectsContainer"
-  );
-
-  // Renderizar projetos no modal
-  if (modal.container) {
-    modal.renderProjects(projects);
-  }
 });

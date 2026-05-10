@@ -138,19 +138,30 @@
       </a>
 
       <nav class="nav">
-        <button class="nav__toggle" aria-label="Menu" aria-expanded="false">
+        <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false">
           <span class="nav__bar"></span>
           <span class="nav__bar"></span>
           <span class="nav__bar"></span>
         </button>
 
+        <div class="nav__backdrop"></div>
+
         <ul class="nav__list">
-          <li><a href="#inicio" class="nav__link active">Início</a></li>
-          <li><a href="#servicos" class="nav__link">Serviços</a></li>
-          <li><a href="#pacotes" class="nav__link">Pacotes</a></li>
-          <li><a href="#projetos" class="nav__link" id="openProjectsBtn">Projetos</a></li>
-          <li><a href="../diagnostico/" class="nav__link nav__link--highlight">Diagnóstico</a></li>
-          <li><a href="#contato" class="nav__link">Contato</a></li>
+          <li class="nav__drawer-header">
+            <div class="nav__drawer-logo">
+              <img src="./assets/Logo.png" alt="HoDevWeb" width="36" height="36">
+              <span>HoDevWeb</span>
+            </div>
+            <button class="nav__drawer-close" aria-label="Fechar menu">
+              <i class="fas fa-times"></i>
+            </button>
+          </li>
+          <li><a href="#inicio" class="nav__link active"><i class="fas fa-home"></i> Início</a></li>
+          <li><a href="#servicos" class="nav__link"><i class="fas fa-cogs"></i> Serviços</a></li>
+          <li><a href="#pacotes" class="nav__link"><i class="fas fa-box"></i> Pacotes</a></li>
+          <li><a href="#portifolio" class="nav__link"><i class="fas fa-briefcase"></i> Portfólio</a></li>
+          <li><a href="../diagnostico/" class="nav__link nav__link--highlight"><i class="fas fa-stethoscope"></i> Diagnóstico Grátis</a></li>
+          <li><a href="#contato" class="nav__link"><i class="fas fa-envelope"></i> Contato</a></li>
           <li class="nav__cta">
             <a href="https://wa.me/5571996466575" target="_blank" class="btn btn-primary">
               <i class="fab fa-whatsapp"></i> Fale Conosco
@@ -161,17 +172,7 @@
     </div>
   </header>
 
-  <!-- ==================== MODAL DE PROJETOS ==================== -->
-  <div id="projectsModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="projectsModalTitle">
-    <div class="modal__overlay"></div>
-    <div class="modal__content">
-      <button class="modal__close" id="closeModalBtn" aria-label="Fechar modal de projetos">&times;</button>
-      <h2 class="modal__title" id="projectsModalTitle">Meus Projetos</h2>
-      <div id="projectsContainer" class="projects__grid"></div>
-    </div>
-  </div>
-
-  <!-- ==================== HERO SECTION ==================== -->
+<!-- ==================== HERO SECTION ==================== -->
   <section class="hero" id="inicio">
     <!-- Particles Canvas -->
     <canvas id="hero-particles" class="hero__particles"></canvas>
@@ -395,6 +396,190 @@
     </div>
   </section>
 
+  <!-- ==================== PORTFOLIO / CLIENTES ==================== -->
+  <section class="clients-section" id="portifolio">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Portfólio</span>
+        <h2 class="section-title">Clientes que Confiam no Nosso Trabalho</h2>
+        <p class="section-subtitle">Negócios reais que transformamos digitalmente — acesse e veja os resultados</p>
+      </div>
+    </div>
+
+    <div class="clients-marquee" aria-label="Portfólio de clientes">
+      <div class="clients-track">
+
+        <!-- CARD 1: JV Saúde Beleza e Estética -->
+        <article class="client-card">
+          <div class="client-card__preview">
+            <img src="./portifolio/Cliente%20JV%20Beleza.png" alt="Site JV Saúde Beleza e Estética" loading="lazy">
+            <div class="client-card__overlay">
+              <span class="client-card__segment">Beleza &amp; Estética</span>
+            </div>
+          </div>
+          <div class="client-card__body">
+            <div class="client-card__stars">⭐⭐⭐⭐⭐</div>
+            <p class="client-card__quote">"Trabalho incrível! Ficou exatamente como eu sonhava — profissional, bonito e moderno. Super recomendo!"</p>
+            <div class="client-card__footer">
+              <div class="client-card__author">
+                <strong>Jacira Oliveira</strong>
+                <span>JV Saúde Beleza e Estética</span>
+              </div>
+              <div class="client-card__links">
+                <a href="https://jvsaudebelezaestetica.com/" target="_blank" rel="noopener noreferrer" class="client-card__link" title="Visitar site">
+                  <i class="fas fa-globe"></i>
+                </a>
+                <a href="https://www.instagram.com/jaciraoliversantos/" target="_blank" rel="noopener noreferrer" class="client-card__link client-card__link--insta" title="Instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 2: Fabi Felintro -->
+        <article class="client-card">
+          <div class="client-card__preview">
+            <img src="./portifolio/Cliente%20Fabi.webp" alt="Site Fabi Felintro Personal Trainer" loading="lazy">
+            <div class="client-card__overlay">
+              <span class="client-card__segment">Personal Trainer</span>
+            </div>
+          </div>
+          <div class="client-card__body">
+            <div class="client-card__stars">⭐⭐⭐⭐⭐</div>
+            <p class="client-card__quote">"Hudson é muito dedicado e atencioso! Entregou tudo no prazo com uma qualidade que superou minha expectativa."</p>
+            <div class="client-card__footer">
+              <div class="client-card__author">
+                <strong>Fabi Felintro</strong>
+                <span>Personal Trainer</span>
+              </div>
+              <div class="client-card__links">
+                <a href="https://fabifelintro.com/" target="_blank" rel="noopener noreferrer" class="client-card__link" title="Visitar site">
+                  <i class="fas fa-globe"></i>
+                </a>
+                <a href="https://www.instagram.com/fabifelintro.trainer/" target="_blank" rel="noopener noreferrer" class="client-card__link client-card__link--insta" title="Instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 3: Agência Bazcar -->
+        <article class="client-card">
+          <div class="client-card__preview">
+            <img src="./portifolio/Cliente%20Bazcar.png" alt="Site Agência Bazcar Marketing" loading="lazy">
+            <div class="client-card__overlay">
+              <span class="client-card__segment">Agência de Marketing</span>
+            </div>
+          </div>
+          <div class="client-card__body">
+            <div class="client-card__stars">⭐⭐⭐⭐⭐</div>
+            <p class="client-card__quote">"Parceria perfeita! Entrega no prazo, design impecável e suporte sempre presente."</p>
+            <div class="client-card__footer">
+              <div class="client-card__author">
+                <strong>Agência Bazcar</strong>
+                <span>Marketing Digital</span>
+              </div>
+              <div class="client-card__links">
+                <a href="https://marketingbazcar.com/" target="_blank" rel="noopener noreferrer" class="client-card__link" title="Visitar site">
+                  <i class="fas fa-globe"></i>
+                </a>
+                <a href="https://www.instagram.com/agenciabazcar/" target="_blank" rel="noopener noreferrer" class="client-card__link client-card__link--insta" title="Instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- DUPLICATAS para loop contínuo sem falha visual -->
+
+        <article class="client-card" aria-hidden="true">
+          <div class="client-card__preview">
+            <img src="./portifolio/Cliente%20JV%20Beleza.png" alt="" loading="lazy">
+            <div class="client-card__overlay">
+              <span class="client-card__segment">Beleza &amp; Estética</span>
+            </div>
+          </div>
+          <div class="client-card__body">
+            <div class="client-card__stars">⭐⭐⭐⭐⭐</div>
+            <p class="client-card__quote">"Trabalho incrível! Ficou exatamente como eu sonhava — profissional, bonito e moderno. Super recomendo!"</p>
+            <div class="client-card__footer">
+              <div class="client-card__author">
+                <strong>Jacira Oliveira</strong>
+                <span>JV Saúde Beleza e Estética</span>
+              </div>
+              <div class="client-card__links">
+                <a href="https://jvsaudebelezaestetica.com/" target="_blank" rel="noopener noreferrer" class="client-card__link" title="Visitar site">
+                  <i class="fas fa-globe"></i>
+                </a>
+                <a href="https://www.instagram.com/jaciraoliversantos/" target="_blank" rel="noopener noreferrer" class="client-card__link client-card__link--insta" title="Instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="client-card" aria-hidden="true">
+          <div class="client-card__preview">
+            <img src="./portifolio/Cliente%20Fabi.webp" alt="" loading="lazy">
+            <div class="client-card__overlay">
+              <span class="client-card__segment">Personal Trainer</span>
+            </div>
+          </div>
+          <div class="client-card__body">
+            <div class="client-card__stars">⭐⭐⭐⭐⭐</div>
+            <p class="client-card__quote">"Hudson é muito dedicado e atencioso! Entregou tudo no prazo com uma qualidade que superou minha expectativa."</p>
+            <div class="client-card__footer">
+              <div class="client-card__author">
+                <strong>Fabi Felintro</strong>
+                <span>Personal Trainer</span>
+              </div>
+              <div class="client-card__links">
+                <a href="https://fabifelintro.com/" target="_blank" rel="noopener noreferrer" class="client-card__link" title="Visitar site">
+                  <i class="fas fa-globe"></i>
+                </a>
+                <a href="https://www.instagram.com/fabifelintro.trainer/" target="_blank" rel="noopener noreferrer" class="client-card__link client-card__link--insta" title="Instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="client-card" aria-hidden="true">
+          <div class="client-card__preview">
+            <img src="./portifolio/Cliente%20Bazcar.png" alt="" loading="lazy">
+            <div class="client-card__overlay">
+              <span class="client-card__segment">Agência de Marketing</span>
+            </div>
+          </div>
+          <div class="client-card__body">
+            <div class="client-card__stars">⭐⭐⭐⭐⭐</div>
+            <p class="client-card__quote">"Parceria perfeita! Entrega no prazo, design impecável e suporte sempre presente."</p>
+            <div class="client-card__footer">
+              <div class="client-card__author">
+                <strong>Agência Bazcar</strong>
+                <span>Marketing Digital</span>
+              </div>
+              <div class="client-card__links">
+                <a href="https://marketingbazcar.com/" target="_blank" rel="noopener noreferrer" class="client-card__link" title="Visitar site">
+                  <i class="fas fa-globe"></i>
+                </a>
+                <a href="https://www.instagram.com/agenciabazcar/" target="_blank" rel="noopener noreferrer" class="client-card__link client-card__link--insta" title="Instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ==================== PRICING SECTION ==================== -->
   <section class="pricing" id="pacotes">
     <div class="container">
@@ -470,18 +655,48 @@
         <p class="section-subtitle">Resultados reais de quem confiou em nosso trabalho</p>
       </div>
 
-      <div class="testimonials__grid testimonials__grid--single">
+      <div class="testimonials__grid">
         <article class="card testimonial-card">
           <span class="quote-icon">"</span>
           <div class="stars">⭐⭐⭐⭐⭐</div>
           <p class="testimonial-text">
-            A HoDevWeb transformou completamente nossa presença digital. Site moderno, intuitivo e trouxe aumento significativo no agendamento online. Recomendo!
+            Fiquei encantada com o resultado! O trabalho da HoDevWeb é incrível — site moderno, bonito, entregue no prazo e com toda atenção que eu precisava. Recomendo muito!
           </p>
           <div class="author">
             <div class="author-avatar">JO</div>
             <div class="author-info">
               <strong>Jacira Oliveira</strong>
-              <span>Proprietária - JV Beleza e Estética</span>
+              <span>Proprietária - JV Saúde Beleza e Estética</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card testimonial-card">
+          <span class="quote-icon">"</span>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">
+            Profissionalismo do início ao fim! O site ficou exatamente como imaginei — leve, bonito e muito bem feito. Hudson é atencioso, capricha nos detalhes e cumpre tudo que promete. Nota 10!
+          </p>
+          <div class="author">
+            <div class="author-avatar">FF</div>
+            <div class="author-info">
+              <strong>Fabi Felintro</strong>
+              <span>Personal Trainer</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card testimonial-card">
+          <span class="quote-icon">"</span>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <p class="testimonial-text">
+            Parceria de alto nível! Entrega no prazo, comunicação excelente e o resultado superou nossas expectativas. O site da agência ficou impecável e profissional.
+          </p>
+          <div class="author">
+            <div class="author-avatar">BC</div>
+            <div class="author-info">
+              <strong>Agência Bazcar</strong>
+              <span>Marketing Digital</span>
             </div>
           </div>
         </article>
