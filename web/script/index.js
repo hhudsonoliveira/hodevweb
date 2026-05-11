@@ -383,68 +383,53 @@ async function sendEmailAfterTerms() {
 // Clients Carousel (auto-scroll + arrow nav)
 // ============================
 function initClientsCarousel() {
-  const marquee = document.querySelector('.clients-marquee');
   const track   = document.querySelector('.clients-track');
   const prevBtn = document.querySelector('.carousel-btn--prev');
   const nextBtn = document.querySelector('.carousel-btn--next');
 
-  if (!marquee || !track) return;
+  if (!track) return;
 
-  const CARD_STEP = 364;   // 340px card + 24px gap
-  const SPEED     = 0.6;   // px per frame (~60px/s)
-  let pos         = 0;
-  let half        = 0;
-  let paused      = false;
-  let pauseTimer  = null;
+  const ANIM_DURATION = 32;  // must match CSS animation duration (seconds)
+  const CARD_STEP     = 364; // 340px card + 24px gap
 
-  function start() {
-    // scrollWidth gives the full content width of the track
-    half = track.scrollWidth / 2;
-    if (half < 100) {
-      // Layout not ready yet — retry after next paint
-      requestAnimationFrame(start);
-      return;
-    }
-    requestAnimationFrame(tick);
+  // Read the current animated translateX from computed style
+  function getCurrentOffset() {
+    const mat = new DOMMatrix(getComputedStyle(track).transform);
+    return -mat.m41; // positive px value
   }
 
-  function tick() {
-    if (!paused) {
-      pos += SPEED;
-      if (pos >= half) pos -= half; // seamless loop without jump
-      track.style.transform = `translateX(-${pos}px)`;
-    }
-    requestAnimationFrame(tick);
+  // Pause CSS animation and snap to current visual position
+  function freeze() {
+    const offset = getCurrentOffset();
+    track.style.animationPlayState = 'paused';
+    track.style.transform = `translateX(-${offset}px)`;
+    return offset;
   }
 
-  function pauseFor(ms) {
-    paused = true;
-    clearTimeout(pauseTimer);
-    pauseTimer = setTimeout(() => { paused = false; }, ms);
+  // Resume CSS animation from a given px offset using negative delay
+  function resumeFrom(offset) {
+    const half     = track.scrollWidth / 2 || 1080;
+    const fraction = ((offset % half) + half) % half / half;
+    track.style.transform           = '';
+    track.style.transition          = '';
+    track.style.animationDelay      = `${-(fraction * ANIM_DURATION)}s`;
+    track.style.animationPlayState  = '';
   }
 
-  function moveTo(newPos) {
-    pos = ((newPos % half) + half) % half; // keep within [0, half)
+  function navigate(direction) {
+    const half   = track.scrollWidth / 2 || 1080;
+    let offset   = freeze();
+
+    // Animate to new position
+    const target = ((offset + direction * CARD_STEP) % half + half) % half;
     track.style.transition = 'transform 0.35s ease';
-    track.style.transform  = `translateX(-${pos}px)`;
-    setTimeout(() => { track.style.transition = 'none'; }, 350);
+    track.style.transform  = `translateX(-${target}px)`;
+
+    setTimeout(() => resumeFrom(target), 380);
   }
 
-  prevBtn?.addEventListener('click', () => {
-    pauseFor(3000);
-    moveTo(pos - CARD_STEP);
-  });
-
-  nextBtn?.addEventListener('click', () => {
-    pauseFor(3000);
-    moveTo(pos + CARD_STEP);
-  });
-
-  marquee.addEventListener('mouseenter', () => { paused = true; });
-  marquee.addEventListener('mouseleave', () => { paused = false; });
-
-  // Delay start so layout dimensions are computed
-  requestAnimationFrame(start);
+  prevBtn?.addEventListener('click', () => navigate(-1));
+  nextBtn?.addEventListener('click', () => navigate(+1));
 }
 
 // ============================
