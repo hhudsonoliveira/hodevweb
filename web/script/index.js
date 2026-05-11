@@ -383,28 +383,57 @@ async function sendEmailAfterTerms() {
 // Clients Carousel (auto-scroll + arrow nav)
 // ============================
 function initClientsCarousel() {
+  const marquee = document.querySelector('.clients-marquee');
   const track   = document.querySelector('.clients-track');
   const prevBtn = document.querySelector('.carousel-btn--prev');
   const nextBtn = document.querySelector('.carousel-btn--next');
 
-  if (!track) return;
+  if (!marquee || !track) return;
 
-  const DURATION_MS = 32000; // must match CSS (32s)
-  const CARD_STEP   = 364;   // 340px card + 24px gap
+  // Kill CSS animation — !important beats everything in the cascade
+  track.style.setProperty('animation', 'none', 'important');
+
+  const CARD_STEP = 364;  // 340px card + 24px gap
+  const SPEED     = 0.6;  // px per frame at 60fps ≈ 60px/s
+  let pos         = 0;
+  let half        = 0;
+  let paused      = false;
+  let navigating  = false;
+
+  function loop() {
+    if (!paused && !navigating) {
+      pos = (pos + SPEED) % half;
+      track.style.transform = `translateX(-${pos}px)`;
+    }
+    requestAnimationFrame(loop);
+  }
+
+  function start() {
+    half = track.scrollWidth / 2;
+    if (half < 50) { requestAnimationFrame(start); return; }
+    track.style.transform = 'translateX(0)';
+    requestAnimationFrame(loop);
+  }
 
   function navigate(direction) {
-    const anim = track.getAnimations()[0];
-    if (!anim) return;
-
-    const half      = track.scrollWidth / 2 || 1080;
-    const curPx     = (anim.currentTime % DURATION_MS) / DURATION_MS * half;
-    const targetPx  = ((curPx + direction * CARD_STEP) % half + half) % half;
-
-    anim.currentTime = targetPx / half * DURATION_MS;
+    if (!half || navigating) return;
+    navigating = true;
+    const target = ((pos + direction * CARD_STEP) % half + half) % half;
+    track.style.transition = 'transform 0.35s ease';
+    track.style.transform  = `translateX(-${target}px)`;
+    setTimeout(() => {
+      pos = target;
+      track.style.transition = 'none';
+      navigating = false;
+    }, 380);
   }
 
   prevBtn?.addEventListener('click', () => navigate(-1));
   nextBtn?.addEventListener('click', () => navigate(+1));
+  marquee.addEventListener('mouseenter', () => { paused = true; });
+  marquee.addEventListener('mouseleave', () => { paused = false; });
+
+  requestAnimationFrame(start);
 }
 
 // ============================
