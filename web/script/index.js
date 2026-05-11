@@ -509,7 +509,11 @@ function loadEmailJS() {
 // Init - Wrap event listeners in DOMContentLoaded for safety
 // ============================
 document.addEventListener("DOMContentLoaded", async () => {
-  // Load EmailJS first
+  // Initialize UI immediately — independent of EmailJS
+  initMobileMenu();
+  initClientsCarousel();
+
+  // Load EmailJS (form only — doesn't block UI)
   try {
     await loadEmailJS();
   } catch (error) {
@@ -517,12 +521,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     showFormAlert('error', 'Erro ao carregar sistema de email. Recarregue a página.');
     return;
   }
-
-  // Initialize mobile menu
-  initMobileMenu();
-
-  // Initialize clients carousel
-  initClientsCarousel();
 
   // Form submit handler
   const sendButton = document.getElementById("send");
