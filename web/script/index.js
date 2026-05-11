@@ -428,12 +428,10 @@ function initClientsCarousel() {
     }, 420);
   }
 
-  prevBtn.addEventListener('click', () => { console.log('[carousel] prev clicked, pos='+pos+', half='+half()); go(-1); });
-  nextBtn.addEventListener('click', () => { console.log('[carousel] next clicked, pos='+pos+', half='+half()); go(+1); });
+  prevBtn.addEventListener('click', () => go(-1));
+  nextBtn.addEventListener('click', () => go(+1));
   marquee.addEventListener('mouseenter', () => { paused = true; });
   marquee.addEventListener('mouseleave', () => { paused = false; });
-
-  console.log('[carousel] init ok | scrollWidth='+track.scrollWidth+' | half='+half());
 }
 
 // ============================
