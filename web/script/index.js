@@ -380,6 +380,58 @@ async function sendEmailAfterTerms() {
 }
 
 // ============================
+// Clients Carousel (auto-scroll + arrow nav)
+// ============================
+function initClientsCarousel() {
+  const marquee  = document.querySelector('.clients-marquee');
+  const track    = document.querySelector('.clients-track');
+  const prevBtn  = document.querySelector('.carousel-btn--prev');
+  const nextBtn  = document.querySelector('.carousel-btn--next');
+
+  if (!marquee || !track) return;
+
+  const CARD_WIDTH = 340 + 24; // card + gap
+  const SPEED      = 0.6;      // px per frame
+  let paused       = false;
+  let pauseTimer   = null;
+
+  function halfWidth() {
+    return track.scrollWidth / 2;
+  }
+
+  function tick() {
+    if (!paused) {
+      marquee.scrollLeft += SPEED;
+      if (marquee.scrollLeft >= halfWidth()) {
+        marquee.scrollLeft = 0;
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function pauseFor(ms) {
+    paused = true;
+    clearTimeout(pauseTimer);
+    pauseTimer = setTimeout(() => { paused = false; }, ms);
+  }
+
+  prevBtn?.addEventListener('click', () => {
+    pauseFor(3000);
+    marquee.scrollBy({ left: -CARD_WIDTH, behavior: 'smooth' });
+  });
+
+  nextBtn?.addEventListener('click', () => {
+    pauseFor(3000);
+    marquee.scrollBy({ left: CARD_WIDTH, behavior: 'smooth' });
+  });
+
+  marquee.addEventListener('mouseenter', () => { paused = true; });
+  marquee.addEventListener('mouseleave', () => { paused = false; });
+
+  requestAnimationFrame(tick);
+}
+
+// ============================
 // Mobile Menu Toggle with Animation
 // ============================
 function initMobileMenu() {
@@ -468,6 +520,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Initialize mobile menu
   initMobileMenu();
+
+  // Initialize clients carousel
+  initClientsCarousel();
 
   // Form submit handler
   const sendButton = document.getElementById("send");

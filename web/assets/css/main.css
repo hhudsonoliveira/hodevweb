@@ -728,11 +728,53 @@
   overflow: hidden;
 }
 
+.carousel-wrapper {
+  position: relative;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(6, 9, 24, 0.7);
+  border: 1px solid rgba(0, 102, 255, 0.5);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 102, 255, 0.35);
+  border-color: var(--primary);
+  box-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn--prev { left: 1rem; }
+.carousel-btn--next { right: 1rem; }
+
 .clients-marquee {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   position: relative;
   padding: var(--spacing-md) 0;
   margin-top: var(--spacing-xl);
+}
+
+.clients-marquee::-webkit-scrollbar {
+  display: none;
 }
 
 .clients-marquee::before,
@@ -760,16 +802,6 @@
   display: flex;
   gap: 1.5rem;
   width: max-content;
-  animation: clients-scroll 32s linear infinite;
-}
-
-.clients-track:hover {
-  animation-play-state: paused;
-}
-
-@keyframes clients-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
 }
 
 /* Client Card */
