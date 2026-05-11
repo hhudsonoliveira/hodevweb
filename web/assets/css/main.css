@@ -764,17 +764,10 @@
 .carousel-btn--next { right: 1rem; }
 
 .clients-marquee {
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  overflow: hidden;
   position: relative;
   padding: var(--spacing-md) 0;
   margin-top: var(--spacing-xl);
-}
-
-.clients-marquee::-webkit-scrollbar {
-  display: none;
 }
 
 .clients-marquee::before,

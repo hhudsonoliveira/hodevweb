@@ -383,28 +383,35 @@ async function sendEmailAfterTerms() {
 // Clients Carousel (auto-scroll + arrow nav)
 // ============================
 function initClientsCarousel() {
-  const marquee  = document.querySelector('.clients-marquee');
-  const track    = document.querySelector('.clients-track');
-  const prevBtn  = document.querySelector('.carousel-btn--prev');
-  const nextBtn  = document.querySelector('.carousel-btn--next');
+  const track   = document.querySelector('.clients-track');
+  const prevBtn = document.querySelector('.carousel-btn--prev');
+  const nextBtn = document.querySelector('.carousel-btn--next');
 
-  if (!marquee || !track) return;
+  if (!track) return;
 
-  const CARD_WIDTH = 340 + 24; // card + gap
-  const SPEED      = 0.6;      // px per frame
-  let paused       = false;
-  let pauseTimer   = null;
+  const CARD_STEP = 340 + 24; // card width + gap
+  const SPEED     = 0.6;      // px per frame
+  let pos         = 0;
+  let half        = 0;
+  let paused      = false;
+  let pauseTimer  = null;
 
-  function halfWidth() {
-    return track.scrollWidth / 2;
+  // Calculate half after layout is ready
+  function getHalf() {
+    return track.offsetWidth / 2;
+  }
+
+  function applyTransform(smooth) {
+    track.style.transition = smooth ? 'transform 0.4s ease' : 'none';
+    track.style.transform  = `translateX(-${pos}px)`;
   }
 
   function tick() {
     if (!paused) {
-      marquee.scrollLeft += SPEED;
-      if (marquee.scrollLeft >= halfWidth()) {
-        marquee.scrollLeft = 0;
-      }
+      if (half === 0) half = getHalf();
+      pos += SPEED;
+      if (half > 0 && pos >= half) pos = 0;
+      track.style.transform = `translateX(-${pos}px)`;
     }
     requestAnimationFrame(tick);
   }
@@ -417,16 +424,19 @@ function initClientsCarousel() {
 
   prevBtn?.addEventListener('click', () => {
     pauseFor(3000);
-    marquee.scrollBy({ left: -CARD_WIDTH, behavior: 'smooth' });
+    pos = Math.max(0, pos - CARD_STEP);
+    applyTransform(true);
   });
 
   nextBtn?.addEventListener('click', () => {
     pauseFor(3000);
-    marquee.scrollBy({ left: CARD_WIDTH, behavior: 'smooth' });
+    if (half === 0) half = getHalf();
+    pos = Math.min(half - 1, pos + CARD_STEP);
+    applyTransform(true);
   });
 
-  marquee.addEventListener('mouseenter', () => { paused = true; });
-  marquee.addEventListener('mouseleave', () => { paused = false; });
+  track.parentElement?.addEventListener('mouseenter', () => { paused = true; });
+  track.parentElement?.addEventListener('mouseleave', () => { paused = false; });
 
   requestAnimationFrame(tick);
 }
