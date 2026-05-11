@@ -383,34 +383,35 @@ async function sendEmailAfterTerms() {
 // Clients Carousel (auto-scroll + arrow nav)
 // ============================
 function initClientsCarousel() {
+  const marquee = document.querySelector('.clients-marquee');
   const track   = document.querySelector('.clients-track');
   const prevBtn = document.querySelector('.carousel-btn--prev');
   const nextBtn = document.querySelector('.carousel-btn--next');
 
-  if (!track) return;
+  if (!marquee || !track) return;
 
-  const CARD_STEP = 340 + 24; // card width + gap
-  const SPEED     = 0.6;      // px per frame
+  const CARD_STEP = 364;   // 340px card + 24px gap
+  const SPEED     = 0.6;   // px per frame (~60px/s)
   let pos         = 0;
   let half        = 0;
   let paused      = false;
   let pauseTimer  = null;
 
-  // Calculate half after layout is ready
-  function getHalf() {
-    return track.offsetWidth / 2;
-  }
-
-  function applyTransform(smooth) {
-    track.style.transition = smooth ? 'transform 0.4s ease' : 'none';
-    track.style.transform  = `translateX(-${pos}px)`;
+  function start() {
+    // scrollWidth gives the full content width of the track
+    half = track.scrollWidth / 2;
+    if (half < 100) {
+      // Layout not ready yet — retry after next paint
+      requestAnimationFrame(start);
+      return;
+    }
+    requestAnimationFrame(tick);
   }
 
   function tick() {
     if (!paused) {
-      if (half === 0) half = getHalf();
       pos += SPEED;
-      if (half > 0 && pos >= half) pos = 0;
+      if (pos >= half) pos -= half; // seamless loop without jump
       track.style.transform = `translateX(-${pos}px)`;
     }
     requestAnimationFrame(tick);
@@ -422,23 +423,28 @@ function initClientsCarousel() {
     pauseTimer = setTimeout(() => { paused = false; }, ms);
   }
 
+  function moveTo(newPos) {
+    pos = ((newPos % half) + half) % half; // keep within [0, half)
+    track.style.transition = 'transform 0.35s ease';
+    track.style.transform  = `translateX(-${pos}px)`;
+    setTimeout(() => { track.style.transition = 'none'; }, 350);
+  }
+
   prevBtn?.addEventListener('click', () => {
     pauseFor(3000);
-    pos = Math.max(0, pos - CARD_STEP);
-    applyTransform(true);
+    moveTo(pos - CARD_STEP);
   });
 
   nextBtn?.addEventListener('click', () => {
     pauseFor(3000);
-    if (half === 0) half = getHalf();
-    pos = Math.min(half - 1, pos + CARD_STEP);
-    applyTransform(true);
+    moveTo(pos + CARD_STEP);
   });
 
-  track.parentElement?.addEventListener('mouseenter', () => { paused = true; });
-  track.parentElement?.addEventListener('mouseleave', () => { paused = false; });
+  marquee.addEventListener('mouseenter', () => { paused = true; });
+  marquee.addEventListener('mouseleave', () => { paused = false; });
 
-  requestAnimationFrame(tick);
+  // Delay start so layout dimensions are computed
+  requestAnimationFrame(start);
 }
 
 // ============================
