@@ -388,52 +388,52 @@ function initClientsCarousel() {
   const prevBtn = document.querySelector('.carousel-btn--prev');
   const nextBtn = document.querySelector('.carousel-btn--next');
 
-  if (!marquee || !track) return;
+  if (!marquee || !track || !prevBtn || !nextBtn) return;
 
-  // Kill CSS animation — !important beats everything in the cascade
-  track.style.setProperty('animation', 'none', 'important');
+  const STEP  = 364;   // 340px card + 24px gap
+  const SPEED = 0.5;
+  let pos     = 0;
+  let paused  = false;
+  let busy    = false;
 
-  const CARD_STEP = 364;  // 340px card + 24px gap
-  const SPEED     = 0.6;  // px per frame at 60fps ≈ 60px/s
-  let pos         = 0;
-  let half        = 0;
-  let paused      = false;
-  let navigating  = false;
+  // Stop CSS animation unconditionally
+  track.style.cssText = 'animation: none !important;';
 
-  function loop() {
-    if (!paused && !navigating) {
-      pos = (pos + SPEED) % half;
+  function half() {
+    return track.scrollWidth / 2 || 1080;
+  }
+
+  // Auto-scroll loop
+  (function tick() {
+    if (!paused && !busy) {
+      pos += SPEED;
+      if (pos >= half()) pos -= half();
       track.style.transform = `translateX(-${pos}px)`;
     }
-    requestAnimationFrame(loop);
-  }
+    requestAnimationFrame(tick);
+  }());
 
-  function start() {
-    half = track.scrollWidth / 2;
-    if (half < 50) { requestAnimationFrame(start); return; }
-    track.style.transform = 'translateX(0)';
-    requestAnimationFrame(loop);
-  }
-
-  function navigate(direction) {
-    if (!half || navigating) return;
-    navigating = true;
-    const target = ((pos + direction * CARD_STEP) % half + half) % half;
-    track.style.transition = 'transform 0.35s ease';
+  // Arrow navigation
+  function go(dir) {
+    if (busy) return;
+    busy = true;
+    const h      = half();
+    const target = ((pos + dir * STEP) % h + h) % h;
+    track.style.transition = 'transform 0.4s ease';
     track.style.transform  = `translateX(-${target}px)`;
     setTimeout(() => {
-      pos = target;
-      track.style.transition = 'none';
-      navigating = false;
-    }, 380);
+      pos                    = target;
+      track.style.transition = '';
+      busy                   = false;
+    }, 420);
   }
 
-  prevBtn?.addEventListener('click', () => navigate(-1));
-  nextBtn?.addEventListener('click', () => navigate(+1));
+  prevBtn.addEventListener('click', () => { console.log('[carousel] prev clicked, pos='+pos+', half='+half()); go(-1); });
+  nextBtn.addEventListener('click', () => { console.log('[carousel] next clicked, pos='+pos+', half='+half()); go(+1); });
   marquee.addEventListener('mouseenter', () => { paused = true; });
   marquee.addEventListener('mouseleave', () => { paused = false; });
 
-  requestAnimationFrame(start);
+  console.log('[carousel] init ok | scrollWidth='+track.scrollWidth+' | half='+half());
 }
 
 // ============================
