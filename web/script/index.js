@@ -389,43 +389,18 @@ function initClientsCarousel() {
 
   if (!track) return;
 
-  const ANIM_DURATION = 32;  // must match CSS animation duration (seconds)
-  const CARD_STEP     = 364; // 340px card + 24px gap
-
-  // Read the current animated translateX from computed style
-  function getCurrentOffset() {
-    const mat = new DOMMatrix(getComputedStyle(track).transform);
-    return -mat.m41; // positive px value
-  }
-
-  // Pause CSS animation and snap to current visual position
-  function freeze() {
-    const offset = getCurrentOffset();
-    track.style.animationPlayState = 'paused';
-    track.style.transform = `translateX(-${offset}px)`;
-    return offset;
-  }
-
-  // Resume CSS animation from a given px offset using negative delay
-  function resumeFrom(offset) {
-    const half     = track.scrollWidth / 2 || 1080;
-    const fraction = ((offset % half) + half) % half / half;
-    track.style.transform           = '';
-    track.style.transition          = '';
-    track.style.animationDelay      = `${-(fraction * ANIM_DURATION)}s`;
-    track.style.animationPlayState  = '';
-  }
+  const DURATION_MS = 32000; // must match CSS (32s)
+  const CARD_STEP   = 364;   // 340px card + 24px gap
 
   function navigate(direction) {
-    const half   = track.scrollWidth / 2 || 1080;
-    let offset   = freeze();
+    const anim = track.getAnimations()[0];
+    if (!anim) return;
 
-    // Animate to new position
-    const target = ((offset + direction * CARD_STEP) % half + half) % half;
-    track.style.transition = 'transform 0.35s ease';
-    track.style.transform  = `translateX(-${target}px)`;
+    const half      = track.scrollWidth / 2 || 1080;
+    const curPx     = (anim.currentTime % DURATION_MS) / DURATION_MS * half;
+    const targetPx  = ((curPx + direction * CARD_STEP) % half + half) % half;
 
-    setTimeout(() => resumeFrom(target), 380);
+    anim.currentTime = targetPx / half * DURATION_MS;
   }
 
   prevBtn?.addEventListener('click', () => navigate(-1));
