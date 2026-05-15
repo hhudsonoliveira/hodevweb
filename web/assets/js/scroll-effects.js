@@ -158,7 +158,8 @@ function initScrollEffects() {
 
   // ============ STATS NUMBERS ============
   gsap.utils.toArray('.stats__number').forEach(stat => {
-    const target = parseInt(stat.dataset.target) || parseInt(stat.textContent) || 0;
+    if (!stat.dataset.target) return;
+    const target = parseInt(stat.dataset.target) || 0;
 
     ScrollTrigger.create({
       trigger: stat,
